@@ -1,0 +1,6 @@
+/.tmp/**
+/docs/**
+/mock/**
+/prd/**
+/node_modules/**
+/src/app/common/lib/**

@@ -1,0 +1,221 @@
+@mainColor: #45CF8E;
+
+.login-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 304px;
+  margin: -200px 0 0 -152px;
+  border-radius: 4px;
+  background: #fff;
+  .login {
+    width: 304px;
+    height: 360px;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.20);
+    text-align: center;
+    padding-top: 40px;
+    position: relative;
+    overflow: hidden;
+
+    .status {
+      padding-top: 10px;
+      font-size: 12px;
+      color: #616161;
+    }
+    .cancel {
+      width: 208px;
+      height: 36px;
+      line-height: 36px;
+      margin: 26px auto 0 auto;
+      border: 1px solid #E6E6E6;
+      border-radius: 2px;
+      font-size: 16px;
+      color: #616161;
+      cursor: pointer;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: auto;
+      position: relative;
+      &.green {
+        background: @mainColor;
+      }
+      .iconfont.camel {
+        font-size: 60px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -30px;
+        margin-top: -48px;
+        color: #fff;
+      }
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+    }
+    .form {
+      margin-top: 30px;
+      .account-info {
+        width: 208px;
+        margin: 0 auto;
+        border: 1px solid #E6E6E6;
+        border-radius: 2px;
+        .item {
+          background: rgba(255, 255, 255, 0.3);
+          width: 208px;
+          margin: 0 auto;
+
+          &.bb {
+            border-bottom: 1px solid #E6E6E6;
+          }
+          .input {
+            width: 208px;
+            height: 36px;
+            line-height: 36px;
+            border: 0;
+            font-size: 14px;
+            color: #333;
+            background: none;
+          }
+          .domain {
+            width: 80px;
+            height: 36px;
+            line-height: 36px;
+            color: #BDBDBD;
+            font-size: 14px;
+            float: right;
+            margin-right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            word-wrap: normal;
+          }
+        }
+      }
+
+      .btn-login {
+        border-radius: 2px;
+        display: block;
+        width: 208px;
+        background: @mainColor;
+        height: 36px;
+        line-height: 36px;
+        margin: 16px auto 0 auto;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+
+        &.disabled {
+          background: #9c9c9c;
+          color: #d4d4d4;
+          cursor: default;
+        }
+      }
+
+    }
+    .domain-choose {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      margin-left: -9px;
+      cursor: pointer;
+      .iconfont.double-arrow-down{
+        font-size: 18px;
+        color: #9E9E9E;
+      }
+      .iconfont.double-arrow-up{
+        font-size: 18px;
+        color: #9E9E9E;
+      }
+    }
+  }
+  .domain-block {
+    padding: 17px 0 43px 48px;
+    font-size: 12px;
+    .domain-list {
+      max-height: 60px;
+      overflow-y: scroll;
+      .item {
+        margin-bottom: 7px;
+        cursor: pointer;
+        .iconfont.circle {
+          display: inline-block;
+          font-size: 16px;
+          color: #9E9E9E;
+          vertical-align: middle;
+        }
+        .iconfont.nike {
+          display: inline-block;
+          font-size: 16px;
+          color: @mainColor;
+          vertical-align: middle;
+        }
+        span {
+          display: inline-block;
+          margin-left: 10px;
+          height: 16px;
+        }
+
+        .input {
+          position: relative;
+          display: inline-block;
+          width: 148px;
+          .check {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 26px;
+            height: 26px;
+            background: #E6E6E6;
+            border-radius: 2px;
+            &.right {
+              background: @mainColor;
+            }
+            .iconfont.nike2 {
+              font-size: 14px;
+              color: #fff;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              margin-left: -7px;
+              margin-top: -11px;
+            }
+          }
+          input {
+            width: 107px;
+            height: 24px;
+            border: 1px solid #E6E6E6;
+            border-radius: 2px;
+            padding-left: 5px;
+            margin-left: 10px;
+          }
+        }
+
+      }
+    }
+    .domain-add-btn {
+      width: 24px;
+      padding-left: 17px;
+      position: absolute;
+      cursor: pointer;
+      right: 48px;
+      bottom: 16px;
+      font-size: 12px;
+      height: 22px;
+      line-height: 22px;
+      color: #39B87C;
+      .iconfont.plus {
+        font-size: 14px;
+        color: #39B87C;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+}

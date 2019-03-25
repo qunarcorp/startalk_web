@@ -1,0 +1,464 @@
+/**** 动画配置 ****/
+.no-animation{
+    animation:none;
+}
+
+.animation {
+    display: block !important;
+}
+
+.animating {
+    display: block;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out
+}
+
+
+/**** 动画名称 ****/
+
+.bounceIn {
+    animation-name: bounceIn;
+}
+
+.bounceOut {
+    animation-name: bounceOut, fadeOut;
+}
+
+.slideLeftOut {
+    animation-name: slideLeftOut;
+}
+
+.slideLeftIn {
+    animation-name: slideLeftIn;
+}
+
+.slideRightIn {
+    animation-name: slideRightIn;
+}
+
+.slideRightOut {
+    animation-name: slideRightOut;
+}
+
+.scaleIn {
+    animation-name: scaleIn, fadeIn;
+}
+
+.scaleOut {
+    animation-name: scaleOut, fadeOut;
+}
+
+.slideDownIn {
+    animation-name: slideDownIn, fadeIn;
+}
+
+.slideDownOut {
+    animation-name: slideDownOut;
+}
+
+.slideUpIn {
+    z-index: 10;
+    animation-name: slideUpIn;
+}
+
+.slideUpOut {
+    animation-name: slideUpOut, fadeOut;
+}
+
+.flipIn {
+    animation-name: flipIn, fadeIn;
+}
+
+.flipOut {
+    animation-name: flipOut, fadeOut;
+}
+
+.flipIn,
+.flipOut {
+    backface-visibility: visible !important;
+    transform-origin: top left;
+}
+
+.filpCenterIn {
+    animation-name: filpCenterIn;
+}
+
+.filpCenterInRev {
+    animation-name: filpCenterInRev;
+}
+
+.filpCenterOut {
+    animation-name: filpCenterOut;
+}
+
+.filpCenterOutRev {
+    animation-name: filpCenterOutRev;
+}
+
+.filpCenterIn,
+.filpCenterOut,
+.filpCenterInRev,
+.filpCenterOutRev {
+    backface-visibility: visible !important;
+    transform-origin: center center;
+}
+
+.scaleDownIn {
+    animation-name: scaleDownIn;
+    animation-duration: 600ms;
+}
+
+.scaleUpOut {
+    animation-name: scaleUpOut;
+    animation-duration: 600ms;
+}
+
+.fadeOut {
+    animation-name: fadeOut;
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}
+
+.animation-base {
+    animation-iteration-count: infinite;
+    animation-delay: 100ms;
+    animation-play-state: running;
+}
+
+.sp-flash {
+    animation-name: flash;
+    animation-duration: 1s;
+    .animation-base
+}
+
+.sp-shake {
+    animation-name: shake;
+    animation-duration: 300ms;
+    .animation-base
+}
+
+.sp-rotate {
+    animation-name: rotate;
+    animation-duration: 1s;
+    .animation-base
+}
+
+.sp-rotate-rev {
+    animation-name: rotate-rev;
+    animation-duration: 1s;
+    .animation-base
+}
+
+
+/**** 动画细节配置 ****/
+
+//放大闪烁
+@keyframes scale-flash {
+    50% {
+        transform: scale(1.2);
+        text-shadow: #444 0 4px 1px;
+    }
+}
+
+@keyframes scale-flash-blue {
+    50% {
+        transform: scale(1.2);
+        text-shadow: #5dd4e3 0 2px 1px;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    30% {
+        box-shadow: 0 0 5px #25a4bb;
+    }
+    50% {
+        opacity: .8;
+    }
+    70% {
+        box-shadow: 0 0 5px #25a4bb;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-rev {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate3d(0px, 0px, 0) rotate(0deg);
+    }
+    8% {
+        transform: translate3d(-2.5px, -0.5px, 0) rotate(-0.5deg);
+    }
+    16% {
+        transform: translate3d(-0.5px, 0.5px, 0) rotate(-0.5deg);
+    }
+    24% {
+        transform: translate3d(1.5px, -0.5px, 0) rotate(-0.5deg);
+    }
+    32% {
+        transform: translate3d(-0.5px, -0.5px, 0) rotate(-1.5deg);
+    }
+    40% {
+        transform: translate3d(1.5px, -1.5px, 0) rotate(0.5deg);
+    }
+    48% {
+        transform: translate3d(-2.5px, 0.5px, 0) rotate(0.5deg);
+    }
+    56% {
+        transform: translate3d(0.5px, -1.5px, 0) rotate(0.5deg);
+    }
+    64% {
+        transform: translate3d(0.5px, -0.5px, 0) rotate(-0.5deg);
+    }
+    72% {
+        transform: translate3d(0.5px, -2.5px, 0) rotate(-1.5deg);
+    }
+    80% {
+        transform: translate3d(0.5px, 0.5px, 0) rotate(-1.5deg);
+    }
+    88% {
+        transform: translate3d(0.5px, -1.5px, 0) rotate(0.5deg);
+    }
+    96% {
+        transform: translate3d(1.5px, 1.5px, 0) rotate(0.5deg);
+    }
+}
+
+@keyframes scaleDownIn {
+    0% {
+        opacity: 0;
+        transform: scale(.6) translate3d(0, -100%, 0);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(.6) translate3d(0, -10%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translate3d(0, 0, 0);
+    }
+}
+
+@keyframes scaleUpOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) translate3d(0, 0, 0);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(.6) translate3d(0, -10%, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(.6) translate3d(0, -100%, 0);
+    }
+}
+
+@keyframes slideLeftIn {
+    0% {
+        transform: translate3d(100%, 0, 0)
+    }
+    100% {
+        transform: translate3d(0, 0, 0)
+    }
+}
+
+@keyframes slideLeftOut {
+    0% {
+        transform: translate3d(0, 0, 0)
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0)
+    }
+}
+
+@keyframes slideRightIn {
+    0% {
+        transform: translate3d(-100%, 0, 0)
+    }
+    100% {
+        transform: translate3d(0%, 0, 0)
+    }
+}
+
+@keyframes slideRightOut {
+    0% {
+        transform: translate3d(0%, 0, 0)
+    }
+    100% {
+        transform: translate3d(100%, 0, 0)
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(.2)
+    }
+    100% {
+        transform: scale(1)
+    }
+}
+
+@keyframes scaleOut {
+    0% {
+        transform: scale(1)
+    }
+    100% {
+        transform: scale(.2)
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounceOut {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(.5);
+    }
+}
+
+@keyframes slideDownIn {
+    0% {
+        transform: translate3d(0, -100%, 0)
+    }
+    100% {
+        transform: translate3d(0, 0, 0)
+    }
+}
+
+@keyframes slideUpOut {
+    0% {
+        transform: translate3d(0, 0, 0)
+    }
+    100% {
+        transform: translate3d(0, -100%, 0)
+    }
+}
+
+@keyframes slideDownOut {
+    0% {
+        transform: translate3d(0, 0, 0)
+    }
+    100% {
+        transform: translate3d(0, 100%, 0)
+    }
+}
+
+@keyframes slideUpIn {
+    0% {
+        transform: translate3d(0, 90%, 0)
+    }
+    100% {
+        transform: translate3d(0, 0, 0)
+    }
+}
+
+@keyframes flipIn {
+    0% {
+        transform: perspective(1000px) rotateY(90deg);
+    }
+    100% {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+}
+
+@keyframes flipOut {
+    0% {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+    100% {
+        transform: perspective(1000px) rotateY(90deg);
+    }
+}
+
+@keyframes filpCenterIn {
+    0% {
+        transform: perspective(1000px) rotateY(-90deg);
+    }
+    100% {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+}
+
+@keyframes filpCenterInRev {
+    0% {
+        transform: perspective(4000px) rotateY(90deg);
+    }
+    100% {
+        transform: perspective(4000px) rotateY(0deg);
+    }
+}
+
+@keyframes filpCenterOut {
+    0% {
+        transform: perspective(4000px) rotateY(0deg);
+    }
+    100% {
+        transform: perspective(4000px) rotateY(90deg);
+    }
+}
+
+@keyframes filpCenterOutRev {
+    0% {
+        transform: perspective(4000px) rotateY(0deg);
+    }
+    100% {
+        transform: perspective(4000px) rotateY(-90deg);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,72 @@
+.tree {
+  min-height: 22px;
+  padding: 15px 0;
+  cursor: pointer;
+  &-list {
+    width: 248px;
+    min-height: 40px;
+    z-index: 1;
+    &-item {
+      width: 248px;
+      min-height: 40px;
+      float: left;
+      position: relative;
+      &.deep {
+        padding: 9px 0;
+      }
+      &.search {
+        .text {
+          color: #E92F2F;
+        }
+      }
+      &.disabled {
+        // pointer-events: none
+        .text {
+          color: #9E9E9E;
+        }
+      }
+      .iconfont {
+        float: left;
+        color: #45CF8E;
+        font-size: 14px;
+        vertical-align: middle;
+        margin-top: 9px;
+      }
+      .iconfont.nike {
+        font-size: 24px;
+        color: #BDBDBD;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        margin-top: -24px;
+        cursor: pointer;
+        &.active {
+          color: #45CF8E;
+        }
+      }
+      .text {
+        width: 166px;
+        height: 40px;
+        line-height: 40px;
+        float: left;
+        font-weight: 400;
+        font-size: 14px;
+        margin-left: 6px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        user-select:none;
+        &.text-active{
+          color: #45CF8E;
+        }
+      }
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        float: left;
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+.select {
+  cursor: pointer;
+  word-wrap: break-word;
+  position: relative;
+  line-height: 1em;
+  white-space: normal;
+  outline: 0;
+  display: inline-block;
+  color: rgba(0,0,0,.87);
+  box-shadow: none;
+  padding: 5px 0;
+  transition: box-shadow .1s ease, width .1s ease, -webkit-box-shadow .1s ease;
+  text-align: left;
+  .icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
+  .s-search {
+    border: none;
+    border-bottom: 1px solid rgba(34,36,38,.15);
+  }
+  .s-list {
+    width: 100%;
+    position: absolute;
+    top: 25px;
+    z-index: 3;
+    background: #fff;
+    &.hide {
+      display: none;
+    }
+    &-item {
+      padding: 5px 10px;
+      width: auto;
+      &.active {
+        background: #07b5e9;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+.modals {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0, 0.5);
+  z-index: 100;
+  text-align: left;
+  &.hide {
+    display: none;
+  }
+  .modal {
+    margin: 0 auto;
+    border-radius: 5px;
+    background: #fff;
+    min-width: 300px;
+    // max-width: 90vw;
+    position: fixed;
+    overflow: hidden;
+    .title {
+      line-height: 50px;
+      background: #f9f9f9;
+      position: relative;
+      padding-left: 15px;
+      .close {
+        position: absolute;
+        right: 16px;
+        top: 14px;
+      }
+    }
+    .content {
+      text-align: left;
+      padding: 10px;
+    }
+    .footer {
+      border-top: 1px solid #f1f1f1;
+      padding: 15px;
+      text-align: right;
+      .btn {
+        margin-left: 15px;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
