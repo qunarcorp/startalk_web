@@ -3,6 +3,7 @@
  * 其中 pub_key_fullkey的值需要生成，详见node项目readme.md
  * */
 module.exports = {
+    "domain":"",//域
     "host":"",//主机名 websock  baseaddess.host
     "debug":true,//调试
     "maType":6,//平台类型web端：6
