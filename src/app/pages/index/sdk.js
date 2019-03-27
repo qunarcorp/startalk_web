@@ -5,12 +5,12 @@ import webConfig from '../../../../web_config';
 // 初始化sdk
 const sdk = new window.QtalkSDK({
   // 调试
-  debug: webConfig.debug,
+  debug: true,
   // 链接配置
   connect: {
-    host: webConfig.host // 主机名
+    host: webConfig.websocket // 主机名
   },
-  maType: webConfig.maType // 平台类型web端：6
+  maType: 6 // 平台类型web端：6
 });
 
 export default sdk;
