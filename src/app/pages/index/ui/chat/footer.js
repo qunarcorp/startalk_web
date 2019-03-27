@@ -8,7 +8,6 @@ import Emotions from './emotions';
 import actions from '../../actions';
 import sdk from '../../sdk';
 import $ from '../../../../common/lib/caret';
-import webConfig from '../../../../../../web_config'
 
 $(window).on('drop dragover', (e) => {
   e.preventDefault();

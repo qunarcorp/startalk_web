@@ -11,7 +11,6 @@ import ContentMenu from './ui/modal/contentmenu';
 import Members from './ui/modal/members';
 import { treeKey } from './consts';
 import sdk from './sdk';
-import webConfig from '../../../../web_config';
 const users = {};
 const bu = [];
 Notification.requestPermission();//用户是否同意显示通知

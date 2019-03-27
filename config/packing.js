@@ -7,7 +7,6 @@
 
 import path from 'path';
 import packingGlob from 'packing-glob';
-import webConfig from '../web_config';
 
 export default (packing) => {
   const p = packing;
@@ -15,25 +14,6 @@ export default (packing) => {
   p.stylelint.enable = false;
   p.eslint.enable = false;
   p.visualizer.enable = true;
-
-  // 网站自定义配置
-  p.rewriteRules = {
-    // 网站URL与模版的对应路由关系
-    '^/$': '/index',
-
-    // '^/debug$': '/debug.pug',
-
-    '^/api/(.*)': webConfig.apiurl+'/$1',
-    '^/ops/(.*)': webConfig.javaurl+'/ops/$1',
-    '^/s/(.*)': webConfig.javaurl+'/s/$1',
-    '^/file/(.*)': webConfig.fileurl+'/file/$1',
-    '^/package/(.*)': webConfig.javaurl+'/package/$1'
-
-
-    // '^/package/(.*)': 'http://qt.darlyn.com/package/$1',
-    // API转发
-    // '^/api/(.*)': 'require!/mock/api/$1.js'
-  };
 
   p.path.entries = () => {
     const entryFileName = 'entry.js';
