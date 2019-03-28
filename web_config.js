@@ -3,6 +3,7 @@
  * */
 module.exports = {
     "domain":"",
+    "xmpp":"",
     "websocket":"",
     "javaurl":"",
     "emails":""

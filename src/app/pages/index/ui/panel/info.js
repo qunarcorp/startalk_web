@@ -98,7 +98,9 @@ export default class Info extends Component {
     }
     return (
       <div className="header">
-        <div className="avatar user-card" onClick={this.onShowUserCard}>
+        <div className="avatar user-card" onClick={()=>{
+          // this.onShowUserCard  暂不开发 darlyn
+          }}>
           <img className="img" src={img} alt="" />
         </div>
         <div className="info">
