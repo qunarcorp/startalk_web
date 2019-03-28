@@ -9,7 +9,7 @@
 - 若实现本地调试，需要先本地启动sdk项目
 - 再将本项目local.env 改变路径  QTALK_SDK_URL= http://127.0.0.1:5001/qtalk_web_sdk@local.js
 
-2. 在浏览器中预览网站 `http://localhost:5002`
+2. 在浏览器中预览网站 `http://localhost:5002/index`
   
 3. 其他命令
   ```sh

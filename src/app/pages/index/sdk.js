@@ -6,6 +6,7 @@ import webConfig from '../../../../web_config';
 const sdk = new window.QtalkSDK({
   // 调试
   debug: true,
+  xmpp:webConfig.xmpp,
   // 链接配置
   connect: {
     host: webConfig.websocket // 主机名
