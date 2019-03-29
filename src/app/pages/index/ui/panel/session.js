@@ -169,7 +169,9 @@ export default class Session extends Component {
             this.switchSession(item);
           }
         }}
-        onContextMenu={(e) => { this.onContextMenu(e, item); }}
+        onContextMenu={(e) => { 
+          // this.onContextMenu(e, item); 暂不支持 darlyn
+        }}
         key={`session_${index}`}
         className={cls('item', { active: isCurrentSession })}
       >
