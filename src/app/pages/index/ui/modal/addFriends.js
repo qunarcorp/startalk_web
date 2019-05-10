@@ -6,6 +6,7 @@ import Modal from '../../../../common/components/modal';
 import Select from '../../../../common/components/select2-one';
 import actions from '../../actions';
 import sdk from '../../sdk';
+import webConfig from '../../../../../../web_config';
 
 @connect(
   state => ({
@@ -92,7 +93,7 @@ export default class AddFriends extends Component {
                 <li key={`user-list-${item.uri}`}>
                   <div className="img-wrap">
                     <LazyLoad height={40} overflow>
-                      <img src={item.icon || '../../../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png'} alt="" />
+                      <img src={item.icon || webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png'} alt="" />
                     </LazyLoad>
                   </div>
                   <div className="button">
