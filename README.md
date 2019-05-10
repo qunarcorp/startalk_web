@@ -43,8 +43,8 @@
 
 
 ### 图片 本地assets文件夹
-- 默认用户头像：/assets/footer/a3faf4373242d1.png
-- imgError默认图片：/assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png 
+- 默认用户头像：webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png'
+- imgError默认图片：webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png' 
 - logo图片：/assets/footer/4cf2f7c2e63f4a02.png
 
 - 用户头像 ：接口返回的链接（get_vcard_info）##

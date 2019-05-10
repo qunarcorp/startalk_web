@@ -182,7 +182,7 @@ export default class UserCard extends Component {
   };
 
   imgError(e) {
-    e.target.src = '../../../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png';//darlyn
+    e.target.src = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
   }
 
   render() {

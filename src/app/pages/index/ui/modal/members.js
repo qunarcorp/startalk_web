@@ -370,7 +370,7 @@ export default class Members extends Component {
   };
 
   imgError(e) {
-    e.target.src = '../../../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png';//darlyn
+    e.target.src = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
   }
 
   renderList() {
@@ -388,7 +388,7 @@ export default class Members extends Component {
       <ul className="user-list">
         {
           arr.map((item) => {
-            let img = '../../../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png';//darlyn
+            let img = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
             const { jid, affiliation } = item;
             const [u] = jid.split('@');
             let name = (companyUsers[u] || {}).N || jid;

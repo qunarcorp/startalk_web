@@ -67,7 +67,7 @@ export default class Info extends Component {
       '确认退出?',
       '提示'
     ).ok(() => {
-      let img = '../../../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png?w=80&h=80';//darlyn';
+      let img = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png?w=80&h=80';//darlyn';
       const info = this.props.userInfo.get(sdk.bareJid);
       if (info) {
         img = info.get('imageurl') || '';
@@ -86,7 +86,7 @@ export default class Info extends Component {
 
   render() {
     const { userInfo } = this.props;
-    let img = '../../../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png?w=80&h=80';//darlyn';
+    let img = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png?w=80&h=80';//darlyn';
     let name = '';
     const info = userInfo.get(sdk.bareJid);
     if (info) {

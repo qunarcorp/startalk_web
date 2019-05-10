@@ -11,6 +11,7 @@ import ContentMenu from './ui/modal/contentmenu';
 import Members from './ui/modal/members';
 import { treeKey } from './consts';
 import sdk from './sdk';
+import webConfig from '../../../../web_config';
 const users = {};
 const bu = [];
 Notification.requestPermission();//用户是否同意显示通知
@@ -47,7 +48,7 @@ export default class Page extends Component {
           U: u.U,
           N: u.N,
           text: `${u.U}[${u.N}]`,
-          icon: '../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png',
+          icon: webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png',
           key: `${key}-${u.U}`
         };
         ul.push(users[u.U]);
