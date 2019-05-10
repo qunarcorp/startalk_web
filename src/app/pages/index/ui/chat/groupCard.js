@@ -156,7 +156,7 @@ export default class UserCard extends Component {
 
     let img = MP;
     if (!/^(https:|http:|\/\/)/g.test(img)) {
-      // img =  webConfig.javaurl+`/${img}`;//darlyn
+      img =  webConfig.fileurl+`/${img}`;//darlyn
     }
     const bgNum = emails ? emails.length % 8 : 0;
     return (

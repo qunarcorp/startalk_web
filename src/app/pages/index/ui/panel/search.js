@@ -128,8 +128,8 @@ export default class Search extends Component {
           this.state.showModal &&
           <div className="result">
             {this.renderResult()}
-            <p className="find">找不到?尝试打开会话</p>
-            <p className="try" onClick={() => this.onSessionClick({ user: this.state.value, mFlag: '1' })}>打开ID为[<span>{this.state.value}</span>]的对话</p>
+            {/* <p className="find">找不到?尝试打开会话</p>
+            <p className="try" onClick={() => this.onSessionClick({ user: this.state.value, mFlag: '1' })}>打开ID为[<span>{this.state.value}</span>]的对话</p> */}
           </div>
         }
       </div>

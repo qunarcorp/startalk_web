@@ -47,7 +47,7 @@ export default class Page extends Component {
           U: u.U,
           N: u.N,
           text: `${u.U}[${u.N}]`,
-          icon: '../../../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png',
+          icon: '../../../../assets/footer/ff1a003aa731b0d4e2dd3d39687c8a54.png',
           key: `${key}-${u.U}`
         };
         ul.push(users[u.U]);

@@ -267,7 +267,7 @@ export default class Message extends Component {
                 nickName = userCard.get('nickname') || '';
                 img = userCard.get('imageurl') || '';
                 if (!/^(https:|http:|\/\/)/g.test(img)) {
-                  // img =  webConfig.javaurl+`/${img}`;//darlyn
+                  img =  webConfig.fileurl+`/${img}`;//darlyn
                 }
               } else if (item.sendjid) {
                 const [name] = item.sendjid.split('@');

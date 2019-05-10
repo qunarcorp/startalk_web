@@ -173,7 +173,7 @@ export default class Members extends Component {
                 name = info.get('nickname') || jid;
                 img = info.get('imageurl') || '';
                 if (!/^(https:|http:|\/\/)/g.test(img)) {
-                  // img =  webConfig.javaurl+`/${img}`;
+                  img =  webConfig.fileurl+`/${img}`;
                 }
               }
               return (

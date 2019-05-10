@@ -192,7 +192,7 @@ export default class UserCard extends Component {
       m.name = info.get('nickname') || name;
       m.img = info.get('imageurl') || img;
       if (!/^(https:|http:|\/\/)/g.test(m.img)) {
-        // m.img = `${webConfig.javaurl}/${m.img}`;
+        m.img = `${webConfig.fileurl}/${m.img}`;
       }
       m.gender = info.get('gender');
     }
