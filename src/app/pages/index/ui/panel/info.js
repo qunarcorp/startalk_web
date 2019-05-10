@@ -72,7 +72,7 @@ export default class Info extends Component {
       if (info) {
         img = info.get('imageurl') || '';
         if (!/^(https:|http:|\/\/)/g.test(img)) {
-          // img = `${webConfig.javaurl}/${img}`;
+          img = `${webConfig.fileurl}/${img}`;
         }
       }
       Cookies.set('qt_avatar', img, { expires: 1 });
@@ -93,7 +93,7 @@ export default class Info extends Component {
       name = info.get('nickname') || '';
       img = info.get('imageurl') || '';
       if (!/^(https:|http:|\/\/)/g.test(img)) {
-        // img = `${webConfig.javaurl}/${img}`;
+        img = `${webConfig.fileurl}/${img}`;
       }
     }
     return (

@@ -202,7 +202,7 @@ export default class UserCard extends Component {
     }
     let img = MP;
     if (!/^(https:|http:|\/\/)/g.test(img)) {
-      img = `${ webConfig.javaurl}/${img}`;
+      img = `${ webConfig.fileurl}/${img}`;
     }
     return (
       <div className="m-group-card animation animating bounceIn" style={pos}>
