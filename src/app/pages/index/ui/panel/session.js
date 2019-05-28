@@ -157,7 +157,7 @@ export default class Session extends Component {
       img = info.get('MP') || '';
     }
     if (!/^(https:|http:|\/\/)/g.test(img)) {
-      // img = `${webConfig.javaurl}/${img}`;
+      img = `${webConfig.fileurl}/${img}`;
     }
     // 判断是否当前会话
     const isCurrentSession = user === currentSession.get('user');
