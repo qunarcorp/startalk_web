@@ -50,7 +50,7 @@ const { PORT, IP, BASEURL } = process.env
 global.startalkNavConfig = {}
 global.startalkKeys = {}
 
-request(`${BASEURL}/startalk_nav`, (error, response, body) => {
+request(`${BASEURL}/newapi/nck/qtalk_nav.qunar`, (error, response, body) => {
   if (!error && response.statusCode == 200) {
     global.startalkNavConfig = JSON.parse(body)
 
