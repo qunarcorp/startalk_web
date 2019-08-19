@@ -38,11 +38,6 @@ Notification.requestPermission();//用户是否同意显示通知
 export default class Page extends Component {
   constructor(props) {
     super(props)
-
-    // this.getStartalkNav()
-    // this.state = {
-    //   flag: false
-    // }
   }
   
   componentDidMount() {
@@ -55,51 +50,6 @@ export default class Page extends Component {
           companyUsers: users
         });
       }
-    });
-  }
-
-  async getStartalkNav() {
-    const { setStartalkNav, setPublicKey } = this.props
-    const req = await axios({
-      method: 'get',
-      url: '/startalk_nav',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const { data } = req;
-
-    setStartalkNav(data);
-
-    const publicKeyReq = await this.getPublicKey(data.baseaddess.javaurl)
-    const { data: publicKeyData } = publicKeyReq
-    console.log(publicKeyData)
-    if (publicKeyData.ret) {
-      initSdk(data, publicKeyData.data.pub_key_fullkey)
-        .then(sdk => {
-          console.log(sdk)
-          this.setState({ flag: true })
-          sdk.ready(async () => {
-            const res = await sdk.getCompanyStruct();
-            if (res.ret) {
-              // res.data 处理成jstree结构
-              this.props.setChatField({
-                companyStruct: this.genTreeData(res.data || [], treeKey),
-                companyUsers: users
-              });
-            }
-          });
-        })
-
-      setPublicKey(publicKeyData.data)
-    } else {
-      alert(publicKeyData.errmsg)
-    }
-  }
-
-  getPublicKey() {
-    return axios({
-      method: 'get',
-      url: '/package/qtapi/nck/rsa/get_public_key.do',
-      headers: { 'Content-Type': 'application/json' }
     });
   }
 
