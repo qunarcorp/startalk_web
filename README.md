@@ -56,20 +56,10 @@
     cp -rf startalk_web/dist /startalk/startalk_web
 ```
 #### 修改配置
-- 进入项目目录，配置 .env 文件，改为 NODE_ENV=development
-```
-    cd /startalk/startalk_web
-    vim .env
-```
-- 编辑完成后，保存退出vim编辑
-```
-    按下 esc键
-    输入 :wq
-    回车
-```
-- 配置 startalk.env 文件，将 BASEURL=http://IP:8080 的IP改成服务器IP
+- 进入项目目录，配置 startalk.env 文件，将 BASEURL=http://IP:8080 的IP改成服务器IP
 - 其他配置：端口、公共路径可根据实际情况选择性配置
 ```
+    cd /startalk/startalk_web
     vim profiles/production/startalk.env
 ```
 - 编辑完成后，保存退出vim编辑
@@ -94,9 +84,10 @@
 
 ### 注意
 #### 注意事项
-- 前端服务默认端口为5000，默认公共路径为根路径
+- 前端服务默认端口为5000，默认公共路径为根路径（startalk.env 文件配置）
 - 如果需要修改端口或者公共路径，需要同步修改ng转发配置，确保后端接口正常调用
-- 如若需要修改代码，则需要重新打包生成dist目录
+- .env 文件默认为生产环境 NODE_ENV=production
+- 如若需要修改源代码，则需要重新打包生成dist目录
   - 先fork项目到自己的GitHub
   - 参考本项目下的developement.md文件，进行本地开发调试
   - 本地启动成功后便可将最新的dist文件上传至服务器启动
