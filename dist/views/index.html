@@ -1,0 +1,26 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: xi.guo
+ * @Date: 2019-08-05 14:54:15
+ * @LastEditTime: 2019-08-13 19:49:17
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles/index.ffc7f4b8.css"/>
+  <title>startalk</title>
+</head>
+<body data-startalknav='<%=navConfig%>' data-startalkkeys='<%=keys%>' >
+  <div id="app"></div>
+  <script>
+      const body = document.body
+      const startalkNav = JSON.parse(body.dataset.startalknav)
+      const startalkKeys = JSON.parse(body.dataset.startalkkeys)
+  </script>
+  <script src="scripts/_startalk_sdk.ffc7f4b8.js"></script><script src="scripts/common.ffc7f4b8.js"></script><script src="scripts/index.ffc7f4b8.js"></script>
+</body>
+</html>

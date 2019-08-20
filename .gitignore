@@ -36,4 +36,3 @@ Thumbs.db
 # pods ignore
 Pods/
 node_modules/
-dist/
