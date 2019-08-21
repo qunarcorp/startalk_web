@@ -34,6 +34,9 @@ const proxyMap = {
   },
   '/api': {
     url: ['baseaddess', 'httpurl']
+  },
+  '/file': {
+    url: ['baseaddess', 'fileurl']
   }
 };
 
@@ -49,7 +52,6 @@ const proxyMiddleware = () => {
   return async (ctx, next) => {
     for (var proxyKey in proxyMap) {
       if (ctx.url.startsWith(proxyKey)) {
-        //
         ctx.respond = false;
         const {
           body
