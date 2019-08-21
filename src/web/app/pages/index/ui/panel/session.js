@@ -181,7 +181,7 @@ export default class Session extends Component {
           }
         }}
         onContextMenu={(e) => { 
-          // this.onContextMenu(e, item); 暂不支持 darlyn
+          this.onContextMenu(e, item);
         }}
         key={`session_${index}`}
         className={cls('item', { active: isCurrentSession })}

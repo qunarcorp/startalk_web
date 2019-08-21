@@ -7,7 +7,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import cls from 'classnames';
+// import cls from 'classnames';
 import MessageBox from '../../../../common/components/message-box';
 // import Cookies from 'js-cookie';
 import actions from '../../actions';
@@ -15,7 +15,7 @@ import sdk from '../../sdk';
 
 const webConfig = {
   fileurl: startalkNav.baseaddess && startalkNav.baseaddess.fileurl,
-  domain: startalkNav.baseaddess && startalkNav.baseaddess.domain, 
+  domain: startalkNav.baseaddess && startalkNav.baseaddess.domain,
   emails: ''
 }
 
@@ -86,7 +86,7 @@ export default class UserCard extends Component {
           leader[username] = leaderRes.data;
         }
         if (profileRes.ret && profileRes.data.length > 0) {
-          profile[username] = profileRes.data[0].M;
+          profile[username] = profileRes.data[0].users[0].mood;
           desc = profile[username];
         }
         this.setState({
@@ -165,7 +165,7 @@ export default class UserCard extends Component {
   }
 
   imgError(e) {
-    e.target.src = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
+    e.target.src = webConfig.fileurl + '/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
   }
 
   render() {
@@ -182,7 +182,7 @@ export default class UserCard extends Component {
     if (!show) {
       return null;
     }
-    const img = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
+    const img = webConfig.fileurl + '/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
     const [name] = user.split('@');
     const info = userInfo.get(user);
     const leaderInfo = leader[name] || {};
@@ -261,14 +261,14 @@ export default class UserCard extends Component {
           </div>
           <div className="info">
             <div className="item">
-              <p className="lab">公司 ID</p>
-              <p className="text">{m.id}</p>
+              <p className="lab">StarTalk ID</p>
+              <p className="text">{m.username}</p>
             </div>
             <div className="item">
-              <p className="lab">员工 ID</p>
-              <p className="text">{m.no}</p>
+              <p className="lab">所在部门</p>
+              <p className="text">{m.bm}</p>
             </div>
-            <div className="item">
+            {/* <div className="item">
               <p className="lab">部门</p>
               <p className="text">{m.bm}</p>
             </div>
@@ -290,7 +290,7 @@ export default class UserCard extends Component {
                   {reqMobile ? '正在请求...' : '点击查看'}
                 </a>
               </p>
-            </div>
+            </div> */}
             <div className="item">
               <p className="lab">个性签名</p>
               {renderDesc()}
