@@ -10,7 +10,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import defaultOptions from './options';
 import { Connection, Ping, Message, buildMessage, upload, emotions } from './core/index';
-import defaultStrophe, { Strophe, $msg, $iq, MD5 } from './core/strophe';
+import defaultStrophe, { Strophe, $msg, $iq } from './core/strophe';
 import messageHelper from './common/utils/messageHelper';
 import utils, {
   configMix,
@@ -18,6 +18,7 @@ import utils, {
   getCookie,
   dataURLtoFile
 } from './common/utils/utils';
+import './common/lib/jquery.md5';
 
 const sdkConfig = {
   domain: startalkNav.baseaddess && startalkNav.baseaddess.domain
@@ -100,7 +101,7 @@ class QtalkSDK extends EventEmitter {
       //  key = 619861523851940845287
       //  uid = darlyn
 
-      const ckey = window.btoa(`u=${this.myId}&k=${MD5.hexdigest(`${key}${t}`).toUpperCase()}&d=${sdkConfig.domain}&t=${t}`);
+      const ckey = window.btoa(`u=${this.myId}&k=${$.md5(`${key}${t}`).toUpperCase()}&d=${sdkConfig.domain}&t=${t}`);
       // document.cookie = `q_ckey=${ckey}; domain=${this.options.xmpp}; path=/;`;
       document.cookie = `q_ckey=${ckey}; path=/;`;
     });
