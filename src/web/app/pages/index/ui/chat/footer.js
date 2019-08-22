@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: xi.guo
  * @Date: 2019-08-06 11:24:02
- * @LastEditTime: 2019-08-13 19:44:57
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-08-21 16:44:57
+ * @LastEditors: chaos.dong
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -205,9 +205,9 @@ export default class Footer extends Component {
     e = e.originalEvent;
     if (e.dataTransfer && e.dataTransfer.files) {
       const file = e.dataTransfer.files[0];
-      if (file && file.type) {
+      if (file && file.type && JSON.stringify(file.type).search('image') === -1) {
         sdk.uploadImg({
-          type: file.type.indexOf('image') > -1 ? 'image' : 'file',
+          type: 'file',
           success: (msg) => {
             if (currentSession.get('mFlag') === '1') {
               appendMessage(msg);
@@ -220,6 +220,13 @@ export default class Footer extends Component {
           },
           filesList: [file]
         });
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (r) => {
+          const img = `<img src="${r.target.result}" data-type="base64" style="max-width: 300px; max-height: 300px;" />`;
+          this.editor.insertHtml(img);
+        };
       }
     }
   };
@@ -233,19 +240,15 @@ export default class Footer extends Component {
     // } = this.props;
     e = e.originalEvent;
     if (e.clipboardData) {
-      const type = e.clipboardData.types[0];
-      const item = e.clipboardData.items[0];
-      if (type && type === 'Files'
-        && item && item.kind === 'file' && item.type.match(/^image\//i)
-        && window.FileReader
-      ) { // 粘贴的是图片
-        const imageFile = item.getAsFile();
+      if (typeof (e.clipboardData.files[0]) !== 'undefined' && e.clipboardData.files[0].name.search('image') !== -1) { // 粘贴的是图片
+        // const imageFile = item.getAsFile();
+        const file = e.clipboardData.files[0];
         const reader = new FileReader();
+        reader.readAsDataURL(file);
         reader.onload = (r) => {
           const img = `<img src="${r.target.result}" data-type="base64" style="max-width: 300px; max-height: 300px;" />`;
           this.editor.insertHtml(img);
         };
-        reader.readAsDataURL(imageFile);
         // sdk.uploadImg({
         //   type: 'image',
         //   success: (msg) => {
@@ -260,6 +263,8 @@ export default class Footer extends Component {
         //   },
         //   filesList: [imageFile]
         // });
+      } else if (JSON.stringify(e.clipboardData.types).search('Files') !== -1) {
+        alert('该页不支持粘贴发送文件,请直接拖动发送~');
       }
     }
   };

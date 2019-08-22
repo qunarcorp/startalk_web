@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 11:24:02
- * @LastEditTime: 2019-08-13 12:14:22
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-08-20 17:25:02
+ * @LastEditors: chaos.dong
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -30,7 +30,7 @@ Notification.requestPermission();//用户是否同意显示通知
 
 @connect(
   state => ({
-    connectStatus: state.getIn(['chat','connectStatus']),
+    connectStatus: state.getIn(['chat', 'connectStatus']),
     nav: state.getIn(['nav'])
   }),
   actions
@@ -39,23 +39,84 @@ export default class Page extends Component {
   constructor(props) {
     super(props)
   }
-  
+
   componentDidMount() {
     sdk.ready(async () => {
       const res = await sdk.getCompanyStruct();
       if (res.ret) {
+        const treeData = this.createTree(res.data);
         // res.data 处理成jstree结构
         this.props.setChatField({
-          companyStruct: this.genTreeData(res.data || [], treeKey),
+          companyStruct: this.genTreeData(treeData || [], treeKey),
           companyUsers: users
         });
       }
     });
   }
+  
+  // 把平级数组转化为树状结构
+  createTree(data) {
+    // 控制每个人的可视数据
+    const visible = [];
+    data.forEach((item) => {
+      if (item.visibleFlag === true) {
+        visible.push(item);
+      }
+    });
+    const treeArray = [];
+    visible.forEach((item) => {
+      const d = item.D;
+      let floor = [];
+      floor = d.split('/').slice(1);
+      let nowArray = treeArray;
+      for (let i = 0; i < floor.length; i++) {
+        const index = this.checkIfExist(nowArray, floor[i]);
+        const vote = {};
+        vote.N = item.N;
+        vote.U = item.U;
+        vote.S = item.S;
+        if (index !== false && i !== floor.length - 1) {
+          nowArray = nowArray[index].SD;
+        } else if (index !== false && i === floor.length - 1) {
+          nowArray[index].UL.push(vote);
+        } else if (index === false && i === floor.length - 1) {
+          nowArray.push({
+            D: floor[i],
+            UL: [vote],
+            SD: []
+          });
+        } else {
+          nowArray.push({
+            D: floor[i],
+            UL: [],
+            SD: []
+          });
+          nowArray = nowArray[nowArray.length - 1].SD;
+        }
+      }
+    });
+    return treeArray;
+  }
+
+  // 判断当前数组中有没有传进去的name的这个部门
+  checkIfExist(array = [], name = '') {
+    let flag = false;
+    if (array.length === 0) {
+      flag = false;
+    } else {
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].D === name) {
+          flag = i;
+          break;
+        }
+      }
+    }
+    return flag;
+  }
 
   genTreeData(data, id) {
     const ret = [];
-    data.length&&data.forEach((item, idx) => {
+    data.length && data.forEach((item, idx) => {
       const key = `${id}-${idx}`;
       bu.push(item.D);
       const ul = [];
@@ -65,7 +126,7 @@ export default class Page extends Component {
           U: u.U,
           N: u.N,
           text: `${u.U}[${u.N}]`,
-          icon: webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png',
+          icon: webConfig.fileurl + '/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png',
           key: `${key}-${u.U}`
         };
         ul.push(users[u.U]);
@@ -82,7 +143,7 @@ export default class Page extends Component {
 
   render() {
     const { connectStatus } = this.props;
-    
+
     if (connectStatus === 'success') {
       return (
         <div id="main">
