@@ -2,15 +2,15 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-05 21:14:24
- * @LastEditTime: 2019-08-12 22:05:53
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-08-21 15:40:53
+ * @LastEditors: chaos.dong
  */
 import EventEmitter from 'events';
 import axios from 'axios';
 import $ from 'jquery';
 import defaultOptions from './options';
 import { Connection, Ping, Message, buildMessage, upload, emotions } from './core/index';
-import defaultStrophe, { Strophe, $msg, $iq, MD5 } from './core/strophe';
+import defaultStrophe, { Strophe, $msg, $iq } from './core/strophe';
 import messageHelper from './common/utils/messageHelper';
 import utils, {
   configMix,
@@ -18,6 +18,7 @@ import utils, {
   getCookie,
   dataURLtoFile
 } from './common/utils/utils';
+import './common/lib/jquery.md5';
 
 const sdkConfig = {
   domain: startalkNav.baseaddess && startalkNav.baseaddess.domain
@@ -99,9 +100,9 @@ class QtalkSDK extends EventEmitter {
       //  t   = 1523851940847
       //  key = 619861523851940845287
       //  uid = darlyn
-    
-      const ckey = window.btoa(`u=${this.myId}&k=${MD5.hexdigest(`${key}${t}`).toUpperCase()}&d=${sdkConfig.domain}&t=${t}`);
-      //document.cookie = `q_ckey=${ckey}; domain=${this.options.xmpp}; path=/;`;
+
+      const ckey = window.btoa(`u=${this.myId}&k=${$.md5(`${key}${t}`).toUpperCase()}&d=${sdkConfig.domain}&t=${t}`);
+      // document.cookie = `q_ckey=${ckey}; domain=${this.options.xmpp}; path=/;`;
       document.cookie = `q_ckey=${ckey}; path=/;`;
     });
 
@@ -284,6 +285,7 @@ class QtalkSDK extends EventEmitter {
 
   /**
    * 获取直属领导，员工编号
+   * 该接口需自己实现
    * @param {String} 登录名 => darlyn
    */
   async getUserLeader(user) {
@@ -295,7 +297,7 @@ class QtalkSDK extends EventEmitter {
     };
     const req = await axios({
       method: 'post',
-      url: '/package/ops/opsapp/api/info',
+      // url: '',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify(data)
     });
@@ -308,6 +310,7 @@ class QtalkSDK extends EventEmitter {
 
   /**
    * 查询用户电话
+   * 该接口需自己实现
    * @param {String} 登录名 => darlyn
    */
   async getUserPhone(user) {
@@ -319,7 +322,7 @@ class QtalkSDK extends EventEmitter {
     };
     const req = await axios({
       method: 'post',
-      url: '/package/ops/opsapp/api/mobile-phone',
+      // url: '',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify(data)
     });
@@ -338,13 +341,15 @@ class QtalkSDK extends EventEmitter {
     const { myId, key } = this;
     const { getNodeFromJid, getDomainFromJid } = Strophe;
     const data = [{
-      version: '0',
-      user: getNodeFromJid(user),
-      domain: getDomainFromJid(user)
+      domain: getDomainFromJid(user),
+      users: [{
+        version: 0,
+        user: getNodeFromJid(user)
+      }]
     }];
     const req = await axios({
       method: 'post',
-      url: '/api/get_user_profile',
+      url: '/newapi/domain/get_vcard_info.qunar',
       headers: { 'Content-Type': 'application/json' },
       params: {
         u: myId,
@@ -362,20 +367,20 @@ class QtalkSDK extends EventEmitter {
    */
   async setUserProfile(desc) {
     const { myId, key, domain } = this;
-    const data = {
+    const data = [{
       mood: desc,
       user: myId,
       domain
-    };
+    }];
     const req = await axios({
       method: 'post',
-      url: '/api/set_user_profile',
+      url: '/newapi/profile/set_profile.qunar',
       headers: { 'Content-Type': 'application/json' },
       params: {
         u: myId,
         k: key
       },
-      data: JSON.stringify(data)
+      data
     });
     return req.data;
   }
@@ -436,13 +441,16 @@ class QtalkSDK extends EventEmitter {
     };
     const ret = await axios({
       method: 'post',
-      url: '/package/qtapi/getrbl.qunar',//.darlyn
+      url: '/package/qtapi/getrbl.qunar', //.darlyn
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify(data)
     });
     let topsInfo = await this.getTopInfo();
-    if (topsInfo.ret) {
-      topsInfo = topsInfo.data;
+    if (topsInfo.ret && topsInfo.data !== undefined) {
+      topsInfo.data.forEach((item) => {
+        const key = item.split('<>')[0];
+        topsInfo[key] = true;
+      });
     } else {
       topsInfo = {};
     }
@@ -716,7 +724,7 @@ class QtalkSDK extends EventEmitter {
    * 获取组织架构
    */
   async getCompanyStruct() {
-    const { myId, key } = this;
+    // const { myId, key } = this;
     // const req = await axios.get('/api/getdeps', {
     //   params: {
     //     u: myId,
@@ -724,11 +732,11 @@ class QtalkSDK extends EventEmitter {
     //   }
     // });
     const req = await axios.post('/newapi/update/getUpdateUsers.qunar', {
-      version: 0//全量
+      version: 0 // 全量
     });
     return {
       ret: true,
-      data: req.data
+      data: req.data.data.update
     };
   }
 
@@ -740,7 +748,7 @@ class QtalkSDK extends EventEmitter {
     const { key, myId } = this;
     const ret = await axios({
       method: 'post',
-      url: '/api/setmucvcard',
+      url: '/newapi/muc/set_muc_vcard.qunar',
       headers: { 'Content-Type': 'application/json' },
       params: {
         u: myId,
@@ -759,16 +767,26 @@ class QtalkSDK extends EventEmitter {
    *  start: 0,
    *  length: 5,
    *  key: val,
-   *  qtalkId: sdk.myId,
-   *  cKey: this.getCookie('q_ckey')
+   *  qtalkId: `${myId}@${domain}`,
+   *  action: 7,
+   *  q_ckey: getCookie('q_ckey')
    * }
    * @return {Promise}      [description]
    * TODO
    */
-  async searchUser(data) {
+  async searchUser(val) {
+    const { myId, domain } = this;
+    const data = {
+      start: 0,
+      length: 5,
+      key: val,
+      qtalkId: `${myId}@${domain}`,
+      action: 7,
+      q_ckey: getCookie('q_ckey')
+    };
     const ret = await axios({
       method: 'post',
-      url: '/search/search.py',
+      url: '/py/search',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify(data)
     });
@@ -788,27 +806,14 @@ class QtalkSDK extends EventEmitter {
    */
   async getTopInfo() {
     const { myId, key, domain } = this;
-    // const req = await axios({
-    //   method: 'post',
-    //   url: '/api/conf/get_person',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   params: {
-    //     u: myId,
-    //     k: key,
-    //     p: 'web',
-    //     d: domain,
-    //     server: domain,
-    //     c: 'qtalk'
-    //   },
-    //   data: JSON.stringify([{
-    //     key: 'kStickJidDic',
-    //     version: '0'
-    //   }])
-    // });
     const req = await axios({
       method: 'post',
       url: '/newapi/configuration/getincreclientconfig.qunar',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+        'Access-Control-Allow-Credentials': true
+      },
       // params: {
       //   username: myId,
       //   host: domain,
@@ -817,15 +822,30 @@ class QtalkSDK extends EventEmitter {
       data: JSON.stringify({
         username: myId,
         host: domain,
-        version: 0
+        version: '0'
       })
     });
     const res = req.data;
     const ret = {
       ret: true
     };
+    const realTop = []; // 真正置顶的用户信息
     if (res.ret) {
-      ret.data = JSON.parse((res.data[0] || {}).value || '{}');
+      // ret.data = JSON.parse((res.data[0] || {}).value || '{}');
+      /* eslint-disable */
+      res.data.clientConfigInfos.map((item) => {
+        if (item.key === 'kStickJidDic') {
+          const stickJidDic = [];
+          stickJidDic.push(item);
+          stickJidDic[0].infos.map((i) => {
+            if (i.isdel === 0) {
+              realTop.push(i.subkey);
+            }
+          });
+        }
+        ret.data = realTop;
+      });
+      /* eslint-disable */
     } else {
       ret.ret = false;
     }
@@ -834,34 +854,42 @@ class QtalkSDK extends EventEmitter {
 
   /**
    * 设置置顶
-   * darlyn.com/conf/set_person?
-   *  server=ejabhost1
-   *  c=qtalk
-   *  u=darlyn
-   *  k=123
-   *  p=web
-   *  d=ejabhost1
-   *
    * @param {Object} id   { 'darlyn@domain': true,...}
    */
   async setTopInfo(ids) {
     const { myId, key, domain } = this;
-    let tops = await this.getTopInfo();
-    if (tops.ret) {
-      tops = tops.data;
-    } else {
-      tops = {};
-    }
+    await this.getTopInfo();
+    let type; // type为操作类型,1：设置；2：删除或取消
+    let subkey;
+    let value = {};
     Object.keys(ids).forEach((k) => {
       if (ids[k]) {
-        tops[k] = true;
+        type = 1;
+        subkey = JSON.stringify(ids).replace('":true}', '').replace('{"', '');
+        if (subkey.search('@conference') !== -1) {
+          subkey = subkey.concat('<>' + subkey);
+          value = "{ chatType: 1, topType: 1 }";
+        } else {
+          subkey = subkey.concat('<>' + subkey);
+          value = "{ chatType: 0, topType: 1 }";
+        }
       } else {
-        delete tops[k];
+        type = 2;
+        subkey = JSON.stringify(ids).replace('":false}', '').replace('{"', '');
+        if (subkey.search('@conference') !== -1) {
+          subkey = subkey.concat('<>' + subkey);
+          value = "{ chatType: 1, topType: 0 }";
+        } else {
+          subkey = subkey.concat('<>' + subkey);
+          value = "{ chatType: 0, topType: 0 }";
+        }
       }
     });
+    // appVersion为浏览器版本号;version为客户端版本,目前web端写死为1
+    const [uuid, appVersion, version] = [createUUID(), navigator.appVersion, 1];
     const req = await axios({
       method: 'post',
-      url: '/api/conf/set_person',
+      url: '/newapi/configuration/setclientconfig.qunar',
       headers: { 'Content-Type': 'application/json' },
       params: {
         u: myId,
@@ -871,11 +899,17 @@ class QtalkSDK extends EventEmitter {
         server: domain,
         c: 'qtalk'
       },
-      data: JSON.stringify([{
+      data: JSON.stringify({
+        username: myId,
+        host: domain,
         key: 'kStickJidDic',
-        value: JSON.stringify(tops),
-        d: domain
-      }])
+        subkey,
+        value,
+        operate_plat: 'web',
+        type,
+        resource: `V[${version}]_P[Web]_D[${appVersion}]_ID[${uuid}]_PB`,
+        version: 0
+      })
     });
     return req.data;
   }
@@ -955,7 +989,7 @@ class QtalkSDK extends EventEmitter {
   async getDomainList() {
     const ret = await axios({
       method: 'post',
-      url: '/package/s/qtalk/domainlist.php?t=qtalk',
+      url: '/newapi/domain/get_domain_list.qunar?t=qtalk',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify({
         version: 0
@@ -978,7 +1012,6 @@ class QtalkSDK extends EventEmitter {
    * @return {Promise}      [description]
    * TODO
    */
-
   async searchSbuddy(data) {
     const ret = await axios({
       method: 'post',
@@ -989,6 +1022,7 @@ class QtalkSDK extends EventEmitter {
     const res = ret.data;
     return res;
   }
+
   /**
    * 退出群
    * @param {String} groupId  asdaf@domian
@@ -1021,7 +1055,7 @@ class QtalkSDK extends EventEmitter {
   }
 
   /**
-   * 提升未管理员
+   * 提升至管理员
    */
   groupSetAdmin(user, groupId, flag) {
     const { bareJid, message } = this;
@@ -1072,17 +1106,17 @@ class QtalkSDK extends EventEmitter {
   // data : [{"domain":"ejabhost1","users":["huajun.liu","ping.xue","test"]}]
   // modify: { "users":["aegon@ejabhost1", "bin.wang@ejabhost1"] }
   async onLineStatus(data) {
-    const { myId, key, domain } = this;
-    let obj = {"users":[]};
-    data.length&&data.forEach((v)=>{
+    // const { myId, key, domain } = this;
+    let obj = { "users": [] };
+    data.length && data.forEach((v) => {
       v.domain;
-      v.users.length&&v.users.forEach((t)=>{
-        obj.users.push(t+"@"+v.domain);
+      v.users.length && v.users.forEach((t) => {
+        obj.users.push(t + "@" + v.domain);
       })
     })
     const ret = await axios({
       method: 'post',
-      url:'/newapi/domain/get_user_status.qunar?v=10121100',
+      url: '/newapi/domain/get_user_status.qunar?v=10121100',
       headers: { 'Content-Type': 'application/json' },
       // params: {
       //   u: myId,

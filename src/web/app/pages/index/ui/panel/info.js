@@ -108,9 +108,7 @@ export default class Info extends Component {
     }
     return (
       <div className="header">
-        <div className="avatar user-card" onClick={()=>{
-          // this.onShowUserCard  暂不开发 darlyn
-          }}>
+        <div className="avatar user-card" onClick={this.onShowUserCard}>
           <img className="img" src={img} alt="" />
         </div>
         <div className="info">
@@ -127,10 +125,10 @@ export default class Info extends Component {
                   'animation animating bounceIn': this.state.showMenu
                 })}
               >
-                {/* <a className="new-talk" onClick={this.onShowMembers}>
+                <a className="new-talk" onClick={this.onShowMembers}>
                   <i className="iconfont message-empty" />
                   <span>发起聊天</span>
-                </a> */}
+                </a>
                 <a onClick={this.logout}>
                   <i className="iconfont logout" />
                   <span>退出</span>

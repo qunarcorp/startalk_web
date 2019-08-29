@@ -60,6 +60,7 @@
 - 其他配置：端口、公共路径可根据实际情况选择性配置
 ```
     cd /startalk/startalk_web
+    npm install
     vim profiles/production/startalk.env
 ```
 - 编辑完成后，保存退出vim编辑
@@ -91,6 +92,8 @@
   - 先fork项目到自己的GitHub
   - 参考本项目下的developement.md文件，进行本地开发调试
   - 本地启动成功后便可将最新的dist文件上传至服务器启动
+- 接口位于entry.js
+  - 获取直属领导，员工编号和查询用户电话功能已写好,接口需使用者实现
 #### 其他辅助命令（部署成功后不需要执行）
 - sudo netstat -anlp| grep 5000  查看5000 端口的进程
 - sudo kill -9 [进程code] 结束进程

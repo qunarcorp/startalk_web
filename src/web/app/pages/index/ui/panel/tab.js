@@ -19,11 +19,10 @@ export default class Tab extends Component {
 
   render() {
     const { switchIndex } = this.props;
-    // 聊天 通讯录 功能暂不支持 darlyn
     return (
       <div>
         <div className="tab">
-          {/* <div className="tab-item" onClick={() => { this.onSwitch('chat'); }}>
+          <div className="tab-item" onClick={() => { this.onSwitch('chat'); }}>
             <a title="聊天">
               <i className={cls('iconfont', { 'message-empty': switchIndex === 'friends', message: switchIndex === 'chat' })} />
             </a>
@@ -32,7 +31,7 @@ export default class Tab extends Component {
             <a title="通讯录">
               <i className={cls('iconfont', { 'card-empty': switchIndex === 'chat', card: switchIndex === 'friends' })} />
             </a>
-          </div> */}
+          </div>
         </div>
         <Session show={switchIndex === 'chat'} />
         <Friends

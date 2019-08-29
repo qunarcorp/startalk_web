@@ -111,7 +111,7 @@ export default class UserCard extends Component {
       leader[username] = leaderRes.data;
     }
     if (profileRes.ret && profileRes.data.length > 0) {
-      profile[username] = profileRes.data[0].M;
+      profile[username] = profileRes.data[0].users[0].mood;
     }
     this.setState({
       profile,
@@ -207,15 +207,16 @@ export default class UserCard extends Component {
           </div>
         </div>
         <div className="info">
+          {/* 剩余功能需自己提供接口,并修改.m-user-card{overflow: scroll}  */}
           <div className="item">
-            <p className="lab">公司 ID</p>
-            <p>{m.id}</p>
+            <p className="lab">StarTalk ID</p>
+            <p>{m.username}</p>
           </div>
           <div className="item">
-            <p className="lab">员工 ID</p>
-            <p>{m.no}</p>
+            <p className="lab">所在部门</p>
+            <p>{m.bm}</p>
           </div>
-          <div className="item">
+          {/* <div className="item">
             <p className="lab">部门</p>
             <p>{m.bm}</p>
           </div>
@@ -237,7 +238,7 @@ export default class UserCard extends Component {
                 {reqMobile ? '正在请求...' : '点击查看'}
               </a>
             </p>
-          </div>
+          </div> */}
           <div className="item">
             <p className="lab">个性签名</p>
             <p>

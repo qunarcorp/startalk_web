@@ -62,13 +62,7 @@ export default class Search extends Component {
       if (val.length > 1) {
         state.showModal = true;
         // 获取查询结果
-        const res = await sdk.searchUser({
-          start: 0,
-          length: 5,
-          key: val,
-          qtalkId: sdk.myId,
-          cKey: Cookies.get('q_ckey')
-        });
+        const res = await sdk.searchUser(val);
         if (res.data) {
           state.result = res.data;
         }
