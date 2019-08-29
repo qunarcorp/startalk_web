@@ -58,9 +58,10 @@
 #### 修改配置
 - 进入项目目录，配置 startalk.env 文件，将 BASEURL=http://IP:8080 的IP改成服务器IP
 - 其他配置：端口、公共路径可根据实际情况选择性配置
+- 建议采用淘宝镜像: npm config set registry https://registry.npm.taobao.org
 ```
     cd /startalk/startalk_web
-    npm install
+    npm install -production
     vim profiles/production/startalk.env
 ```
 - 编辑完成后，保存退出vim编辑
