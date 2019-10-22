@@ -64,10 +64,10 @@ export default class ContentMenu extends Component {
   onViewGroupInfo(groupId) {
     const { setContentMenu, setModalGroupCard, contentmenu } = this.props;
     const pos = contentmenu.get('pos');
-    if (parseInt(pos.top, 10) + 500 > $(window).height()) {
-      delete pos.top;
-      pos.bottom = 20;
-    }
+    // if (parseInt(pos.top, 10) + 500 > $(window).height()) {
+    //   delete pos.top;
+    //   pos.bottom = 20;
+    // }
     setModalGroupCard({
       show: true,
       pos,
@@ -81,10 +81,10 @@ export default class ContentMenu extends Component {
   onViewUserInfo(user) {
     const { setModalUserCard, contentmenu, setContentMenu } = this.props;
     const pos = contentmenu.get('pos');
-    if (parseInt(pos.top, 10) + 500 > $(window).height()) {
-      delete pos.top;
-      pos.bottom = 20;
-    }
+    // if (parseInt(pos.top, 10) + 500 > $(window).height()) {
+    //   delete pos.top;
+    //   pos.bottom = 20;
+    // }
     setModalUserCard({
       show: true,
       pos,

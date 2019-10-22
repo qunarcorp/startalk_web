@@ -111,10 +111,15 @@ export default class Friends extends Component {
     return res;
   }
 
+  showCard = () => {
+    const { changeChatField } = this.props;
+    changeChatField({ isCard: true });
+  }
+
   renderGroup() {
     const { mucs, userInfo } = this.props;
     return (
-      <ul className="result-list">
+      <ul className="result-list" onClick={()=>{this.showCard()}}>
         {
           mucs.map((item) => {
             const mucInfo = userInfo.get(item);
@@ -146,7 +151,7 @@ export default class Friends extends Component {
   renderFriends() {
     const { friends, userInfo } = this.props;
     return (
-      <ul className="result-list">
+      <ul className="result-list" onClick={()=>{this.showCard()}}>
         {
           friends.map((item) => {
             const friendInfo = userInfo.get(item);

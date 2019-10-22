@@ -117,7 +117,7 @@ export default class Info extends Component {
             <span
               className="opt"
               onMouseLeave={() => { this.showMenu(false); }}
-              onMouseEnter={() => { this.showMenu(true); }}
+              onClick={() => { this.showMenu(true); }}
             >
               <i className="iconfont more" />
               <div

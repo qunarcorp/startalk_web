@@ -54,10 +54,10 @@ export default class Emotions extends Component {
       }
     }
     return (
-      <span
+      <div
         className="bar"
         onMouseLeave={() => { this.showMenu(false); }}
-        onMouseEnter={() => { this.showMenu(true); }}
+        onClick={() => { this.showMenu(true); }}
       >
         <i className="iconfont smile" />
         <div
@@ -79,7 +79,7 @@ export default class Emotions extends Component {
           </ul>
           <div className="page">{pageEl}</div>
         </div>
-      </span>
+      </div>
     );
   }
 }

@@ -51,7 +51,8 @@ export default class Members extends Component {
       selectUsers: [], // tree所需要的数据格式
       tree: {}, // tree记录点开的item
       searchTree: {}, // 查询出来的结果key
-      searchText: '' // 查询输入
+      searchText: '', // 查询输入,
+      skipAdd: false
     };
   }
 
@@ -61,7 +62,7 @@ export default class Members extends Component {
     // 交互：点击这些位置不会使modal关闭，其他地方会关闭
     $(window).on('click', (e) => {
       const $target = $(e.target);
-      if ($target.closest('.members-wrap').length === 0
+      if ($target.closest('.phone-members-wrap').length === 0
         && $target.closest('.members').length === 0
         && $target.closest('.iconfont.tebu').length === 0
         && $target.closest('.new-talk').length === 0
@@ -141,6 +142,9 @@ export default class Members extends Component {
   // 关闭modal
   onClose() {
     this.props.setMembersInfo({ show: false });
+    this.setState({
+      skipAdd: false
+    })
   }
 
   // 移除选中的user
@@ -232,13 +236,13 @@ export default class Members extends Component {
       //   offset: 0
       // });
       if (true) {
-        const { companyUsersName } = this.props;
+        const { companyUsers } = this.props;
         const tree = {};
         const searchTree = {};
         // const ui = [];
         // const pattern = '[a-z0-9]+?(?=-)';
         // const regex = new RegExp(pattern, 'g');
-        const u = companyUsersName[val];
+        const u = companyUsers[val];
         if (u && u.key) {
           const mr = u.key.match(/[a-z0-9]+?(?=-)/g);
           if (mr.length > 0) {
@@ -252,6 +256,7 @@ export default class Members extends Component {
           searchTree[u.key] = true;
           // ui.push(item.uri);
         }
+
         // if (ui.length > 0) {
         //   this.cacheUserCard(ui);
         // }
@@ -321,6 +326,9 @@ export default class Members extends Component {
   }
 
   addUser = async () => {
+    this.setState({
+      skipAdd: false
+    })
     const { selectUsers, selected } = this.state;
     const users = [];
     Object.keys(selectUsers).forEach((item) => {
@@ -348,7 +356,6 @@ export default class Members extends Component {
     });
     if (users.length > 2) {
       const res = await sdk.addUser(users, isNew);
-      debugger
       if (res.ret) {
         setMembersInfo({ show: false });
         // 单聊创建新群后，激活会话
@@ -379,6 +386,12 @@ export default class Members extends Component {
       });
     }
   };
+
+  skipAddUser = () => {
+    this.setState({
+      skipAdd: true
+    })
+  }
 
   imgError(e) {
     e.target.src = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
@@ -449,52 +462,65 @@ export default class Members extends Component {
     // if (!show) {
     //   return null;
     // }
+
     return (
-      <div className={cls('members-wrap', { 'animation animating bounceIn': show })}>
-        <div className="members-left">
-          <div className="header">
-            <div className="search">
-              <p>发起聊天</p>
-              <div className="search-bar">
-                <i className="iconfont search" />
-                <input
-                  type="search"
-                  placeholder="请输入完整startalk名字或ID"
-                  onChange={this.onSearch}
-                  value={searchText}
+      <div className={cls('phone-members-wrap', { 'animation animating bounceIn': show })}>
+        {
+          this.state.skipAdd ?
+            <div className="members-left">
+              <div className="header">
+                <div className="search">
+                  <p>发起聊天</p>
+                  <div className="search-bar">
+                    <i className="iconfont search" />
+                    <input
+                      type="search"
+                      placeholder="请输入完整startalk名字或ID!"
+                      onChange={this.onSearch}
+                      value={searchText}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="company-struct">
+                <Tree
+                  data={[{
+                    text: 'Staff',
+                    children: companyStruct,
+                    key: treeKey
+                  }]}
+                  showSelect
+                  selected={selectUsers}
+                  noSelected={selectedMap}
+                  onSelect={this.onTreeSelect}
+                  tree={tree}
+                  searchTree={searchTree}
+                  onClick={(u, t) => this.onTreeClick(u, t)}
                 />
               </div>
-            </div>
-          </div>
-          <div className="company-struct">
-            <Tree
-              data={[{
-                text: 'Staff',
-                children: companyStruct,
-                key: treeKey
-              }]}
-              showSelect
-              selected={selectUsers}
-              noSelected={selectedMap}
-              onSelect={this.onTreeSelect}
-              tree={tree}
-              searchTree={searchTree}
-              onClick={(u, t) => this.onTreeClick(u, t)}
-            />
-          </div>
-        </div>
-        <div className="members-right">
-          <div className="header">已有联系人(共{selected.length}人)</div>
-          {this.renderList()}
-          <div className="footer">
-            <div className="btn cancel" onClick={() => this.onClose()}>
-              取消
-            </div>
-            <div className="btn ensure" onClick={() => this.addUser()}>
-              确定
-            </div>
-          </div>
-        </div>
+              <div className="footer">
+                <div className="btn cancel" onClick={() => this.onClose()}>
+                  取消
+                </div>
+                <div className="btn ensure" onClick={() => this.addUser()}>
+                  确定
+                </div>
+              </div>
+            </div>  
+            :
+            <div className="members-right">
+              <div className="header">已有联系人(共{selected.length}人)</div>
+              {this.renderList()}
+              <div className="footer">
+                <div className="btn cancel" onClick={() => this.onClose()}>
+                  取消
+                </div>
+                <div className="btn add" onClick={() => this.skipAddUser()}>
+                  添加用户
+                </div>
+              </div>
+            </div>                     
+        }
       </div>
     );
   }

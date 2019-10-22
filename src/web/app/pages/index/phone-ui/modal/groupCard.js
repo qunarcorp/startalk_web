@@ -52,7 +52,7 @@ export default class UserCard extends Component {
     // });
     $(window).on('click', (e) => {
       const $target = $(e.target);
-      if ($target.closest('.m-group-card').length === 0
+      if ($target.closest('.phone-m-group-card').length === 0
         && $target.closest('.group-card').length === 0
         && this.props.modalGroupCard.get('show')
       ) {
@@ -192,6 +192,12 @@ export default class UserCard extends Component {
     });
   };
 
+  return() {
+    this.props.setModalGroupCard({
+      show: false
+    });
+  }
+
   imgError(e) {
     e.target.src = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
   }
@@ -216,13 +222,14 @@ export default class UserCard extends Component {
       img = `${ webConfig.fileurl}/${img}`;
     }
     return (
-      <div className="m-group-card animation animating bounceIn" style={pos}>
+      <div className="phone-m-group-card animation animating bounceIn" style={pos}>
         <div
           className="avatar"
         >
           <img src={img} onError={(e) => { this.imgError(e); }} alt="" />
         </div>
         <div className="content">
+          <div className="return" onClick={() => { this.return() }}></div>
           <div className={`banner bg b${emails ? emails.length % 8 : 0}`}>
             <div className="name-text">
               {SN}

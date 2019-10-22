@@ -13,7 +13,9 @@ import UserCard from './userCard';
   state => ({
     currentSession: state.getIn(['chat', 'currentSession']),
     switchIndex: state.getIn(['chat', 'switchIndex']),
-    currentFriend: state.getIn(['chat', 'currentFriend'])
+    currentFriend: state.getIn(['chat', 'currentFriend']),
+    isChat: state.getIn(['chat', 'isChat']),
+    isCard: state.getIn(['chat', 'isCard'])
   }),
   actions
 )
@@ -34,27 +36,29 @@ export default class Chat extends Component {
       });
     });
   };
-
+ 
   render() {
+    //debugger
     const {
       currentSession,
       switchIndex,
-      currentFriend
+      currentFriend,
+      isChat,
+      isCard
     } = this.props;
-
     const currId = currentSession.get('user') || currentSession.get('groupname');
     const currFri = currentFriend.get('user');
-    if (switchIndex === 'chat' && currId) {
+    if (switchIndex === 'chat' && currId && isChat) {
       return (
-        <div id="chat">
+        <div id="phone-chat">
           <Header />
           <Message messageScrollToBottom={this.state.messageScrollToBottom} />
           <Footer messageScrollToBottom={this.messageScrollToBottom} />
         </div>
       );
-    } else if (switchIndex === 'friends' && currFri) {
+    } else if (switchIndex === 'friends' && currFri && isCard) {
       return (
-        <div id="friends">
+        <div id="phone-friends">
           {
             currentFriend.get('mFlag') === '2' ?
               <GroupCard /> :

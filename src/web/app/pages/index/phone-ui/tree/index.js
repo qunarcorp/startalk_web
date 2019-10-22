@@ -61,6 +61,8 @@ class Tree extends Component {
     });
     let u = '';
     if (data.U && this.props.onClick) {
+      const { changeChatField } = this.props;
+      changeChatField({ isCard: true });
       u = `${data.U}@${webConfig.domain}`;
     }
     if (data.children) {

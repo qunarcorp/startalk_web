@@ -7,10 +7,10 @@ import Tab from './tab';
 export default class Panel extends Component {
   componentDidMount() {
   }
-
+ 
   render() {
     return (
-      <div id="panel">
+      <div id="phone_panel">
         <Info />
         <Search />
         <Tab />

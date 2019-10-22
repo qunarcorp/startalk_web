@@ -52,7 +52,7 @@ export default class UserCard extends Component {
     // });
     $(window).on('click', (e) => {
       const $target = $(e.target);
-      if ($target.closest('.m-user-card').length === 0
+      if ($target.closest('.phone-m-user-card').length === 0
         && $target.closest('.user-card').length === 0
         && this.props.modalUserCard.get('show')
       ) {
@@ -164,6 +164,12 @@ export default class UserCard extends Component {
     setModalUserCard({ user });
   }
 
+  return() {
+    this.props.setModalUserCard({
+      show: false
+    }); 
+  }
+
   imgError(e) {
     e.target.src = webConfig.fileurl + '/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn'
   }
@@ -235,11 +241,12 @@ export default class UserCard extends Component {
       );
     };
     return (
-      <div className="m-user-card animation animating bounceIn" style={pos}>
+      <div className="phone-m-user-card animation animating bounceIn" style={pos}>
         <div className="avatar">
           <img src={m.img} alt="" onError={this.imgError} />
         </div>
         <div className="content">
+          <div className="return" onClick={() => { this.return() }}></div>
           <div className={`banner bg b${user ? user.length % 8 : 0}`}>
             <div className="name-text">
               {m.name}

@@ -67,7 +67,7 @@ export default class UserCard extends Component {
       user,
       mFlag: '1'
     });
-    changeChatField({ switchIndex: 'chat' });
+    changeChatField({ switchIndex: 'chat', isCard: false, isChat: true });
     setModalUserCard({
       show: false
     });
@@ -135,6 +135,11 @@ export default class UserCard extends Component {
     });
   }
 
+  return = () => {
+    const { changeChatField } = this.props;
+    changeChatField({ isCard: false });
+  }
+
   imgError(e) {
     e.target.src = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn
   }
@@ -183,6 +188,7 @@ export default class UserCard extends Component {
     return (
       <div className="content">
         <div className={`banner b${bgNum}`}>
+          <div className="return" onClick={()=>{this.return()}}></div>
           <div className={`inner-banner bg b${bgNum}`}>
             <div className="avatar">
               <img src={m.img} alt="" onError={this.imgError} />

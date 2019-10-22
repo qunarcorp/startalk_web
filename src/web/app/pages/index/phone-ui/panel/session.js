@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: xi.guo
  * @Date: 2019-08-06 11:24:03
- * @LastEditTime: 2019-08-13 19:42:47
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-10-22 11:42:47
+ * @LastEditors: chaos.dong
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -17,7 +17,9 @@ import footera3faf4373242d1 from '../../../../../../assets/footer/a3faf4373242d1
 const webConfig = {
   fileurl: startalkNav.baseaddess && startalkNav.baseaddess.fileurl
 }
-
+let timer = null;
+let startTime = '';
+let endTime = '';
 @connect(
   state => ({
     userInfo: state.get('userInfo'),
@@ -87,20 +89,6 @@ export default class Session extends Component {
     });
   }
 
-  onContextMenu(e, data) {
-    e.preventDefault();
-    const { setContentMenu } = this.props;
-    setContentMenu({
-      show: true,
-      type: 'session',
-      data,
-      pos: {
-        left: `${e.clientX}px`,
-        top: `${e.clientY}px`
-      }
-    });
-  }
-
   moveSession(msg) {
     const { moveSession, currentSession, userInfo } = this.props;
     const simpmsg = msg.simpcontent;
@@ -142,6 +130,43 @@ export default class Session extends Component {
     return res;
   }
 
+  //开始按
+  gtouchstart(e, data){
+    e.preventDefault();
+    console.log(111);
+    const pageX = e.touches[0].pageX;
+    const pageY = e.touches[0].pageY;
+    startTime = +new Date()
+    timer = setTimeout(() => {
+      const { setContentMenu } = this.props;
+      setContentMenu({
+        show: true,
+        type: 'session',
+        data,
+        pos: {
+          left: `${pageX}px`,
+          top: `${pageY}px`
+        }
+      });
+      this.gtouchmove()
+    }, 1000)
+  };
+
+  //如果在1000毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
+  gtouchend(e, isCurrentSession, item){
+    e.preventDefault();
+      endTime = +new Date()
+      clearTimeout(timer)
+      if (endTime - startTime < 1000) {
+        // 处理点击事件
+        const { changeChatField } = this.props;
+        changeChatField({ isChat: true });
+        if (!isCurrentSession) {
+          this.switchSession(item);
+        }
+      }
+  };
+
   renderSession(item, index) {
     const { userInfo, currentSession, companyUsers } = this.props;
     let img = footera3faf4373242d1;
@@ -155,7 +180,6 @@ export default class Session extends Component {
     const msg = item.sdk_msg;
     const info = userInfo.get(user);
     // 没有userinfo 展示中文名
-
     if (mFlag === '1' && !info) {
       name = (companyUsers[user.split('@')[0] || ''] || {}).N || user;
     }
@@ -175,16 +199,14 @@ export default class Session extends Component {
     const reddot = parseInt(cnt, 10);
     return (
       <div
-        onClick={() => {
-          if (!isCurrentSession) {
-            this.switchSession(item);
-          }
+        onTouchStart={(e) => {
+          this.gtouchstart(e, item)
         }}
-        onContextMenu={(e) => { 
-          this.onContextMenu(e, item);
+        onTouchEnd={(e) => {
+          this.gtouchend(e,isCurrentSession,item)
         }}
         key={`session_${index}`}
-        className={cls('item', { active: isCurrentSession })}
+        className={cls('item', { active: false })}
       >
         <div className="ext">
           {

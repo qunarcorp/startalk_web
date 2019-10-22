@@ -92,7 +92,7 @@ export default class Footer extends Component {
                   const [username] = item.userInfo.get('username').split('@');
                   const [nickname] = item.userInfo.get('nickname').split('@');
                   if ((username && username.indexOf(query) > -1) ||
-                      (nickname && nickname.indexOf(query) > -1)) {
+                    (nickname && nickname.indexOf(query) > -1)) {
                     rltData.push(item);
                   }
                 });
@@ -159,10 +159,11 @@ export default class Footer extends Component {
           if (e.keyCode === 13 && e.ctrlKey) {
             this.editor.insertHtml('<br>\u200B');
             return false;
-          } else if (e.keyCode === 13) {
-            this.sendMessage();
-            return false;
-          }
+          } 
+          // else if (e.keyCode === 13) {
+          //   this.sendMessage();
+          //   return false;
+          // }
           return true;
         })
         .on('blur', () => {
@@ -416,7 +417,7 @@ export default class Footer extends Component {
   }
 
   imgError(e) {
-    e.target.src = webConfig.fileurl+'/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn
+    e.target.src = webConfig.fileurl + '/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png';//darlyn
   }
 
   render() {
@@ -433,25 +434,24 @@ export default class Footer extends Component {
           <Emotions
             selected={(emotions, face) => { this.selected(emotions, face); }}
           />
-          <span
+          <div
             className="bar"
             onMouseLeave={() => { this.showFileMenu(false); }}
-            onMouseEnter={() => { this.showFileMenu(true); }}
+            onClick={() => { this.showFileMenu(true); }}
           >
             <i className="iconfont folder" />
             <div className={cls('menu file', { 'animation animating bounceIn': this.state.showFileMenu })}>
               <a onClick={() => { this.upload('image'); }}>发送图片</a>
               <a onClick={() => { this.upload('file'); }}>发送文件</a>
             </div>
-          </span>
-        </div>
-        <div className="content">
-          <div
-            id="editor"
-            className="edit-area"
-          />
-          {
-            this.state.showAtList &&
+          </div>
+          <div className="content">
+            <div
+              id="editor"
+              className="edit-area"
+            />
+            {
+              this.state.showAtList &&
               <ul className={cls('at-list', { 'animation animating bounceIn': this.state.showAtList })} style={{ left: this.state.atListPos.left, top: this.state.atListPos.top }}>
                 {
                   userList.map((item, idx) => (
@@ -479,7 +479,11 @@ export default class Footer extends Component {
                   ))
                 }
               </ul>
-          }
+            }
+          </div>
+          <div className="send_message" onClick={() => { this.sendMessage() }}>
+            发送
+          </div>
         </div>
       </div>
     );

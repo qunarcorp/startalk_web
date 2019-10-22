@@ -9,7 +9,8 @@ import sdk from '../../sdk';
 @connect(
   state => ({
     userInfo: state.get('userInfo'),
-    currentSession: state.getIn(['chat', 'currentSession'])
+    currentSession: state.getIn(['chat', 'currentSession']),
+    isChat: state.getIn(['chat', 'isChat'])
   }),
   actions
 )
@@ -30,7 +31,8 @@ export default class Header extends Component {
       // mergeCurrentSessionUser,
       userInfo,
       setUserInfo,
-      currentSession
+      currentSession,
+      isChat
     } = this.props;
     // const { currentSession } = this.props;
     // if (currentSession.mFlag === '2') {
@@ -177,6 +179,11 @@ export default class Header extends Component {
     });
   };
 
+  return = () => {
+    const { changeChatField } = this.props;
+    changeChatField({ isChat: false });
+  }
+
   showSettingMenu(b) {
     clearTimeout(this.time);
     this.time = setTimeout(() => {
@@ -233,6 +240,10 @@ export default class Header extends Component {
     return (
       <div className="chat-header">
         <div className="title-wrap">
+          <div className="return" onClick={()=>{this.return()}}></div>
+          <div className="members" onClick={this.toggleMember}>
+            <i className="icon people3" />
+          </div>
           <div className="title">
             <a className="title-name">{name}</a>
             <span>
@@ -245,9 +256,7 @@ export default class Header extends Component {
               this.state.onLineStatus === 'away' && <i className="iconfont clock" />
             }
           </div>
-          <div className="members" onClick={this.toggleMember}>
-            <i className="icon people3" />
-          </div>
+
         </div>
         {
           showAddUser
