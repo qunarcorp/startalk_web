@@ -25,9 +25,8 @@ const proxyMap = {
   '/package': {
     url: ['baseaddess', 'javaurl']
   },
-  '/search': {
-    url: ['ability', 'searchurl'],
-    pathRewrite: '^/search/search.py'
+  '/py/search': {
+    url: ['ability', 'searchurl']
   },
   '/newapi': {
     url: ['baseaddess', 'httpurl']

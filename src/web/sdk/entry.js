@@ -1001,7 +1001,7 @@ class QtalkSDK extends EventEmitter {
   }
 
   /**
-   * [搜索好友]
+   * [搜索好友,已废弃]
    * @param  {[type]}
    * data {
    *  id: "qtalk.com",
