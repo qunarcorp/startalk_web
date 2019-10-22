@@ -28,6 +28,7 @@ const { $ } = window.QtalkSDK;
     userInfo: state.get('userInfo'),
     companyStruct: state.getIn(['chat', 'companyStruct']),
     companyUsers: state.getIn(['chat', 'companyUsers']),
+    companyUsersName: state.getIn(['chat', 'companyUsersName']),
     currentSession: state.getIn(['chat', 'currentSession']),
     userList: state.getIn(['chat', 'currentSession', 'userList']),
     show: state.getIn(['members', 'show']),
@@ -223,39 +224,37 @@ export default class Members extends Component {
     }
     clearTimeout(this.time);
     this.time = setTimeout(async () => {
-      const res = await sdk.searchSbuddy({
-        id: 'qtalk.com',
-        key: val,
-        ckey: Cookies.get('q_ckey'),
-        limit: 99999,
-        offset: 0
-      });
-      if (res.ret) {
-        const { companyUsers } = this.props;
+      // const res = await sdk.searchSbuddy({
+      //   id: 'qtalk.com',
+      //   key: val,
+      //   ckey: Cookies.get('q_ckey'),
+      //   limit: 99999,
+      //   offset: 0
+      // });
+      if (true) {
+        const { companyUsersName } = this.props;
         const tree = {};
         const searchTree = {};
-        const ui = [];
+        // const ui = [];
         // const pattern = '[a-z0-9]+?(?=-)';
         // const regex = new RegExp(pattern, 'g');
-        res.data.users.forEach((item) => {
-          const u = companyUsers[item.qtalkname];
-          if (u && u.key) {
-            const mr = u.key.match(/[a-z0-9]+?(?=-)/g);
-            if (mr.length > 0) {
-              const l = mr.reduce((prev, next) => {
-                tree[prev] = true;
-                return `${prev}-${next}`;
-              });
-              tree[l] = true;
-              tree[u.key] = true;
-            }
-            searchTree[u.key] = true;
-            ui.push(item.uri);
+        const u = companyUsersName[val];
+        if (u && u.key) {
+          const mr = u.key.match(/[a-z0-9]+?(?=-)/g);
+          if (mr.length > 0) {
+            const l = mr.reduce((prev, next) => {
+              tree[prev] = true;
+              return `${prev}-${next}`;
+            });
+            tree[l] = true;
+            tree[u.key] = true;
           }
-        });
-        if (ui.length > 0) {
-          this.cacheUserCard(ui);
+          searchTree[u.key] = true;
+          // ui.push(item.uri);
         }
+        // if (ui.length > 0) {
+        //   this.cacheUserCard(ui);
+        // }
         this.setState({
           tree,
           searchTree
@@ -349,6 +348,7 @@ export default class Members extends Component {
     });
     if (users.length > 2) {
       const res = await sdk.addUser(users, isNew);
+      debugger
       if (res.ret) {
         setMembersInfo({ show: false });
         // 单聊创建新群后，激活会话
@@ -459,7 +459,7 @@ export default class Members extends Component {
                 <i className="iconfont search" />
                 <input
                   type="search"
-                  placeholder="搜索"
+                  placeholder="请输入完整startalk名字或ID"
                   onChange={this.onSearch}
                   value={searchText}
                 />
@@ -485,7 +485,7 @@ export default class Members extends Component {
         </div>
         <div className="members-right">
           <div className="header">已有联系人(共{selected.length}人)</div>
-          
+          {this.renderList()}
           <div className="footer">
             <div className="btn cancel" onClick={() => this.onClose()}>
               取消

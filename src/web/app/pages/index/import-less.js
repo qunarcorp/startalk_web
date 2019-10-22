@@ -9,6 +9,10 @@ import '../../common/styles/login.less';
 import '../../common/styles/modals.less';
 import '../../common/styles/jstree.css';
 
+import '../../common/styles/phone/panel.less';
+import '../../common/styles/phone/modals.less';
+import '../../common/styles/phone/chat.less';
+
 const styleContent = `
   ::-webkit-scrollbar{
     width: 6px;

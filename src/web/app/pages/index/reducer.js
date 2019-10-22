@@ -175,6 +175,8 @@ const chat = handleActions({
   // 登录状态 loading, success, authfail, fail, disconnected
   connectStatus: '',
   switchIndex: 'chat', // chat friends
+  isChat: true,
+  isCard: true,
   // 会话列表
   session: List([]),
   // 当前会话信息
@@ -182,6 +184,8 @@ const chat = handleActions({
   // 组织结构
   companyStruct: [],
   companyUsers: {},
+  // 用于组织架构搜索
+  companyUsersName: {},
   // 朋友列表当前选择的
   currentFriend: Map({})
 }));

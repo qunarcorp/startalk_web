@@ -139,7 +139,8 @@ let webpackConfig = {
       //production 环境打包到 dist/view 作为 node 的 html 模板
       filename: _mode === 'production' ? '../views/index.html' : 'index.html',
       inject: false,
-      minify: false
+      minify: false,
+      favicon: __dirname + '/src/assets/favicon.ico'
     }),
     new htmlAfterWebpackPlugin()
   ]

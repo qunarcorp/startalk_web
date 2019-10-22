@@ -17,6 +17,14 @@ import UserCard from './ui/modal/userCard';
 import GroupCard from './ui/modal/groupCard';
 import ContentMenu from './ui/modal/contentmenu';
 import Members from './ui/modal/members';
+
+import PhonePanel from './phone-ui/panel';
+import PhoneUserCard from './phone-ui/modal/userCard';
+import PhoneGroupCard from './phone-ui/modal/groupCard';
+import PhoneMembers from './phone-ui/modal/members';
+import PhoneChat from './phone-ui/chat';
+import PhoneContentMenu from './phone-ui/modal/contentmenu';
+
 import { treeKey } from './consts';
 import sdk from './sdk';
 
@@ -24,9 +32,8 @@ const webConfig = {
   fileurl: startalkNav.baseaddess && startalkNav.baseaddess.fileurl
 }
 const users = {};
+const usersName = {};
 const bu = [];
-
-Notification.requestPermission();//用户是否同意显示通知
 
 @connect(
   state => ({
@@ -48,7 +55,8 @@ export default class Page extends Component {
         // res.data 处理成jstree结构
         this.props.setChatField({
           companyStruct: this.genTreeData(treeData || [], treeKey),
-          companyUsers: users
+          companyUsers: users,
+          companyUsersName: usersName
         });
       }
     });
@@ -125,7 +133,23 @@ export default class Page extends Component {
           bu: bu.slice(0),
           U: u.U,
           N: u.N,
-          text: `${u.U}[${u.N}]`,
+          text: `${u.N}[${u.U}]`,
+          icon: webConfig.fileurl + '/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png',
+          key: `${key}-${u.U}`
+        };
+        usersName[u.N] = {
+          bu: bu.slice(0),
+          U: u.U,
+          N: u.N,
+          text: `${u.N}[${u.U}]`,
+          icon: webConfig.fileurl + '/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png',
+          key: `${key}-${u.U}`
+        };
+        usersName[u.U] = {
+          bu: bu.slice(0),
+          U: u.U,
+          N: u.N,
+          text: `${u.N}[${u.U}]`,
           icon: webConfig.fileurl + '/file/v2/download/8c9d42532be9316e2202ffef8fcfeba5.png',
           key: `${key}-${u.U}`
         };
@@ -143,8 +167,10 @@ export default class Page extends Component {
 
   render() {
     const { connectStatus } = this.props;
+    const phone = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
 
-    if (connectStatus === 'success') {
+    if (connectStatus === 'success' && !phone) {
+      Notification.requestPermission();//用户是否同意显示通知
       return (
         <div id="main">
           <Panel />
@@ -155,6 +181,17 @@ export default class Page extends Component {
           <Members />
         </div>
       );
+    } else if(connectStatus === 'success' && phone) {
+      return (
+        <div id="phone_main">
+          <PhonePanel />
+          <PhoneUserCard />
+          <PhoneGroupCard />
+          <PhoneMembers />
+          <PhoneChat />
+          <PhoneContentMenu />
+        </div>
+      )
     }
     return (
       <Login />

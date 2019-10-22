@@ -17,7 +17,7 @@ import defaultOptions from '../options';
 const { config: sdkConfig } = defaultOptions
 
 /**
- * 链接sobsocket或者http-bind
+ * 链接websocket或者http-bind
  */
 class Connection extends EventEmitter {
   STATUS = {
