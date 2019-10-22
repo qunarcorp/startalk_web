@@ -88,7 +88,7 @@ const {
 } = process.env;
 global.startalkNavConfig = {};
 global.startalkKeys = {};
-(0, _request2.default)(`${BASEURL}/newapi/nck/qtalk_nav.qunar`, (error, response, body) => {
+(0, _request2.default)(`${BASEURL}/startalk_nav`, (error, response, body) => {
   if (!error && response.statusCode == 200) {
     global.startalkNavConfig = JSON.parse(body);
     (0, _request2.default)(`${global.startalkNavConfig.baseaddess.javaurl}/qtapi/nck/rsa/get_public_key.do`, (error, response, body) => {
