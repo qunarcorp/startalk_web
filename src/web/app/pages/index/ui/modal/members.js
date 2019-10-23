@@ -348,7 +348,6 @@ export default class Members extends Component {
     });
     if (users.length > 2) {
       const res = await sdk.addUser(users, isNew);
-      debugger
       if (res.ret) {
         setMembersInfo({ show: false });
         // 单聊创建新群后，激活会话

@@ -133,7 +133,6 @@ export default class Session extends Component {
   //开始按
   gtouchstart(e, data){
     e.preventDefault();
-    console.log(111);
     const pageX = e.touches[0].pageX;
     const pageY = e.touches[0].pageY;
     startTime = +new Date()
@@ -148,7 +147,6 @@ export default class Session extends Component {
           top: `${pageY}px`
         }
       });
-      this.gtouchmove()
     }, 1000)
   };
 
@@ -157,7 +155,7 @@ export default class Session extends Component {
     e.preventDefault();
       endTime = +new Date()
       clearTimeout(timer)
-      if (endTime - startTime < 1000) {
+      if (endTime - startTime < 200) {
         // 处理点击事件
         const { changeChatField } = this.props;
         changeChatField({ isChat: true });
@@ -166,6 +164,17 @@ export default class Session extends Component {
         }
       }
   };
+
+  gtouchmove(isCurrentSession, item) {
+    const { setContentMenu, changeChatField } = this.props;
+    setContentMenu({
+      show: false
+    });
+    changeChatField({ isChat: false });
+    if (!isCurrentSession) {
+      this.switchSession(item);
+    }
+  }
 
   renderSession(item, index) {
     const { userInfo, currentSession, companyUsers } = this.props;
@@ -204,6 +213,9 @@ export default class Session extends Component {
         }}
         onTouchEnd={(e) => {
           this.gtouchend(e,isCurrentSession,item)
+        }}
+        onTouchMove={() => {
+          this.gtouchmove(isCurrentSession,item)
         }}
         key={`session_${index}`}
         className={cls('item', { active: false })}

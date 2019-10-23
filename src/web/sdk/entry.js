@@ -709,7 +709,6 @@ class QtalkSDK extends EventEmitter {
         // <iq to='darlyn@darlyn.darlyn' id='' type='set'>
         //     <query xmlns=''/>
         // </iq>
-        debugger
         this.message.send($iq({
           id,
           to: currentSessionId,

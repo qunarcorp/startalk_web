@@ -38,7 +38,6 @@ export default class Chat extends Component {
   };
  
   render() {
-    //debugger
     const {
       currentSession,
       switchIndex,
