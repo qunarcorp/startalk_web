@@ -56,7 +56,7 @@
     cp -rf startalk_web/dist /startalk/startalk_web
 ```
 #### 修改配置
-- 进入项目目录，配置 startalk.env 文件，将 BASEURL=http://IP:8080 的IP改成服务器IP
+- 进入项目目录，配置 startalk.env 文件，将 BASEURL=http://IP:8080 的IP改成服务器IP,NAVIGATION=/ 改为后台导航
 - 其他配置：端口、公共路径可根据实际情况选择性配置
 ```
     cd /startalk/startalk_web

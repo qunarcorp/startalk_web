@@ -15,6 +15,9 @@ import { Strophe } from './strophe';
 import defaultOptions from '../options';
 
 const { config: sdkConfig } = defaultOptions
+const webConfig = {
+  loginType: startalkNav.Login && startalkNav.Login.loginType
+}
 
 /**
  * 链接websocket或者http-bind
@@ -40,26 +43,51 @@ class Connection extends EventEmitter {
     const { host, path, delay } = options;
     this.reconnectCount = 0;
     this.delay = delay;
-    let { protocol } = window.location;
-    let bind = 'http-bind';
-    if (isSupportWebSocket) {
-      protocol = protocol === 'https:' ? 'wss:' : 'ws:';
-      bind = 'websocket';
-    }
+    // let { protocol } = window.location;
+    // let bind = 'http-bind';
+    // if (isSupportWebSocket) {
+    //   protocol = protocol === 'https:' ? 'wss:' : 'ws:';
+    //   bind = 'websocket';
+    // }
     // sdkConfig.httpurl
-    this.stropheConnection = new Strophe.Connection(`${protocol}//${host}${path}/${bind}`);
+    // this.stropheConnection = new Strophe.Connection(`${protocol}//${host}${path}/${bind}`);
+    this.stropheConnection = new Strophe.Connection(host);
   }
 
   connect(user, pwd, domain, autologin) {
-    if (!autologin) {
-      const buildPwd = auth(user, pwd);
-      pwd = buildPwd;
+    if (webConfig.loginType === 'password') {
+      if (!autologin) {
+        const buildPwd = auth(user, pwd);
+        pwd = buildPwd;
+      }
+      if (!domain) {
+        domain = sdkConfig.domain;
+      }
+      this.auth = { user, pwd };
+      this.stropheConnection.connect(`${user}@${domain}`, pwd, this.onConnectStatusChange);
+    } else if (webConfig.loginType === 'newpassword') {
+      if (!domain) {
+        domain = sdkConfig.domain;
+      }
+      if (!autologin) {
+        auth(user, pwd).then(res => {   
+          const token = res[0];                  
+          const uinfo = {
+            nauth: {
+              p: token,
+              u: `${user}@${domain}`,
+              mk: res[1]
+            }
+          };
+          pwd = JSON.stringify(uinfo);
+          this.auth = { user, pwd };
+          this.stropheConnection.connect(`${user}@${domain}`, pwd, this.onConnectStatusChange);
+        })
+      } else {
+        this.auth = { user, pwd };
+        this.stropheConnection.connect(`${user}@${domain}`, pwd, this.onConnectStatusChange);
+      }
     }
-    if (!domain) {
-      domain = sdkConfig.domain;
-    }
-    this.auth = { user, pwd };
-    this.stropheConnection.connect(`${user}@${domain}`, pwd, this.onConnectStatusChange);
   }
 
   reconnect() {
