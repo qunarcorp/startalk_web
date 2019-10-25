@@ -46,11 +46,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const app = new Koa()
-const { PORT, IP, BASEURL } = process.env
+const { PORT, IP, BASEURL, NAVIGATION } = process.env
 global.startalkNavConfig = {}
 global.startalkKeys = {}
 
-request(`${BASEURL}/newapi/nck/qtalk_nav.qunar`, (error, response, body) => {
+request(`${BASEURL}/${NAVIGATION}`, (error, response, body) => {
   if (!error && response.statusCode == 200) {
     global.startalkNavConfig = JSON.parse(body)
 

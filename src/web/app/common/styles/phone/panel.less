@@ -1,14 +1,14 @@
 @mainColor: #45CF8E;
-#panel {
+#phone_panel {
   position: relative;
-  width: 288px;
-  height: 100%;
-  float: left;
-  background: #fff;
+  width: 100vw;
+  height: 100vh;
+  background: #fefefe;
 
   .header {
     padding: 16px;
     position: relative;
+    background: #fefefe;
 
     .avatar {
       display: table-cell;
@@ -39,7 +39,6 @@
         .display-name {
           display: inline-block;
           font-weight: 400;
-          width: 176px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -56,9 +55,10 @@
           vertical-align: top;
           position: relative;
           cursor: pointer;
+          float: right;
 
           .iconfont.more {
-            font-size: 24px;
+            font-size: 29px;
             color: @mainColor;
           }
           .menu {
@@ -69,8 +69,8 @@
             border-radius: 5px;
             box-shadow: 0 0 10px #8c8c8c;
             width: 120px;
-            top: 35px;
-            left: -65px;
+            top: 6vh;
+            left: -21vw;
             z-index: 10;
 
             a {
@@ -78,7 +78,7 @@
               height: 42px;
               display: block;
               cursor: pointer;
-              font-weight: 100;
+              font-weight: 400;
               font-size: 14px;
               color: #212121;
               border-top: 1px solid #e6e6e6;
@@ -103,7 +103,7 @@
 
             &:before, &:after {
               bottom: 100%;
-              left: 50%;
+              left: 68%;
               margin-left: 13px;
               position: absolute;
               border: 6px solid transparent;
@@ -122,24 +122,24 @@
 
   .search-bar {
     position: relative;
-    width: 256px;
-    margin: 0 auto 6px;
-    padding: 0 16px;
+    width: 100%;
+    background: #fefefe;
     .iconfont.search {
       position: absolute;
       left: 21px;
       color: #BDBDBD;
     }
     .keyword {
-      width: 216px;
+      width: 85vw;
       height: 30px;
       line-height: 30px;
-      border-radius: 28px;
+      border-radius: 500px;
       border: 0;
-      background-color: #F5F5F5;
+      background-color: #f5f5f5;
       font-size: 12px;
-      padding-right: 10px;
-      padding-left: 30px;
+      margin-left: 3%;
+      padding-left: 7.5%;
+      padding-right: 2%;
     }
     .result {
       width: 100%;
@@ -256,8 +256,9 @@
   }
 
   .box {
-    height: 415px;
-    // height: 464px;
+    //height: 415px;
+    height: 68vh;
+    // border-bottom: 1px solid #f0f;
     overflow: auto;
     // overflow-y: auto;
     // overflow-x: hidden;
@@ -273,9 +274,9 @@
           position: relative;
           user-select: none;
 
-          &.active {
-            background: #EEEEEE;
-          }
+          // &.active {
+          //   background: #EEEEEE;
+          // }
 
           .ext {
             float: right;
@@ -350,6 +351,7 @@
     }
 
     &.friends {
+      position: relative;
       color: #212121;
       font-size: 12px;
       .jstree-hovered, .jstree-clicked {
@@ -414,9 +416,9 @@
             overflow: hidden;
             user-select: none;
 
-            &.active {
-              background: #EEEEEE;
-            }
+            // &.active {
+            //   background: #EEEEEE;
+            // }
             .img-wrap {
               float: left;
               padding: 4px 0;

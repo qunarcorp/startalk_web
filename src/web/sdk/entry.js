@@ -686,7 +686,7 @@ class QtalkSDK extends EventEmitter {
       };
       // 单聊先要建群
       if (newGroup || currentSessionType === 'chat') {
-        currentSessionId = `${id}@${sdkConfig.domain}`;
+        currentSessionId = `${id}@conference.${sdkConfig.domain}`;
         // addHandler (handler, ns, name, type, id, from, options)
         const handler = this.message.addTemplateHandler((iq) => {
           this.message.deleteTemplateHandler(handler);
@@ -1000,7 +1000,7 @@ class QtalkSDK extends EventEmitter {
   }
 
   /**
-   * [搜索好友]
+   * [搜索好友,已废弃]
    * @param  {[type]}
    * data {
    *  id: "qtalk.com",

@@ -9,7 +9,7 @@
 /**
  * qtlk sdk
  */
-const { baseaddess: {domain, xmpp, xmppmport, fileurl, javaurl} = {} } = startalkNav
+const { baseaddess: {domain, xmpp, xmppmport, fileurl, javaurl, socketurl} = {} } = startalkNav
 
 
 const sdk = new window.QtalkSDK({
@@ -17,8 +17,8 @@ const sdk = new window.QtalkSDK({
   debug: true,
   xmpp: xmpp,
   // 链接配置
-  connect: {
-    host: `${xmpp}:5280` // 主机名
+  connect: { 
+    host: socketurl
   },
   maType: 6 // 平台类型web端：6
 });
