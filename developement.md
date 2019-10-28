@@ -7,7 +7,7 @@
   - 修改 .env 文件为 NODE_ENV=development
   - 进入目录文件 profiles/development/startalk.env， 配置后台地址
     如： BASEURL=http://127.0.0.1:8080
-        NAVIGATION=/startalk_nav
+        NAVIGATION=startalk_nav
   - 执行 npm run build 
   - 新开 tab 页执行 npm run dev 启动项目
 
@@ -15,7 +15,7 @@
   - 修改 .env 文件为 NODE_ENV=production
   - 进入目录文件 profiles/production/startalk.env 配置线上环境后台地址
     如： BASEURL=http://127.0.0.1:8080
-        NAVIGATION=/startalk_nav
+        NAVIGATION=startalk_nav
   - npm run build
   - npm run client
   - 将生产的dist目录上传至服务器

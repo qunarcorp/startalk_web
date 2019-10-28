@@ -51,7 +51,7 @@ class Connection extends EventEmitter {
     // }
     // sdkConfig.httpurl
     // this.stropheConnection = new Strophe.Connection(`${protocol}//${host}${path}/${bind}`);
-    this.stropheConnection = new Strophe.Connection(host);
+    this.stropheConnection = new Strophe.Connection(host || '');
   }
 
   connect(user, pwd, domain, autologin) {
