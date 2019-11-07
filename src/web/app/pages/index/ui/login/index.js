@@ -321,14 +321,14 @@ export default class Login extends Component {
                 </a>
               </div>
           }
-          <div className="domain-choose" onClick={() => this.setState({ showDomain: !showDomain })}>
+          {/* <div className="domain-choose" onClick={() => this.setState({ showDomain: !showDomain })}>
             <i
               className={cls('iconfont', {
                 'double-arrow-down': !showDomain,
                 'double-arrow-up': showDomain
               })}
             />
-          </div>
+          </div> */}
         </div>
         {
           showDomain &&
